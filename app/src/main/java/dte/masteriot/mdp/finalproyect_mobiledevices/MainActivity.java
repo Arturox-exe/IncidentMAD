@@ -14,6 +14,9 @@ import android.widget.Button;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import dte.masteriot.mdp.finalproyect_mobiledevices.mqtt.LoginActivity;
+import dte.masteriot.mdp.finalproyect_mobiledevices.mqtt.PahoExampleActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String URL_INCIDENTS = "https://informo.madrid.es/informo/tmadrid/incid_aytomadrid.xml";
@@ -57,6 +60,11 @@ public class MainActivity extends AppCompatActivity {
         toggle_buttons(false);
         LoadURLContents loadURLContents = new LoadURLContents(handler, URL_INCIDENTS);
         es.execute(loadURLContents);
+    }
+
+    public void onForumClick(View view){
+        Intent i = new Intent(this, LoginActivity.class);
+        startActivity(i);
     }
 
     public void newActivity (String string_result){
