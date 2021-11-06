@@ -1,17 +1,19 @@
 package dte.masteriot.mdp.finalproyect_mobiledevices;
 
+import com.google.android.gms.maps.model.LatLng;
+
 public class Incident {
     private final String name;
     private final String codInc;
     private final String description;
-   // private final LatLng coordenates;
+    private final LatLng coordenates;
 
     //Incident(String name, String cod, String description, LatLng coordenates) {
     Incident(String name, String cod, String description)  {
         this.name = name;
         this.codInc=cod;
         this.description=description;
-       // this.coordenates = coordenates;
+        this.coordenates = coordenates;
     }
 
     String getName() {
@@ -26,8 +28,8 @@ public class Incident {
         return description;
     }
 
-    /*public LatLng getCoordenates() {
+    public LatLng getCoordenates() {
         return coordenates;
-    }*/
+    }
 
 }
