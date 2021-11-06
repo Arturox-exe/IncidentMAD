@@ -11,7 +11,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
+        android:layout_height="100dp"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -24,7 +24,8 @@
 
             <androidx.appcompat.widget.Toolbar android:id="@+id/toolbar"
                 android:layout_height="10dp"
-                android:layout_width="match_parent"/>
+                android:layout_width="match_parent"
+                app:title="Forum"/>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -40,9 +41,18 @@
 
 
 
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height=".3dp"
+        android:visibility="visible"/>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="600dp"
+        android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
         <EditText
@@ -61,10 +71,5 @@
             android:text="Send"
             android:onClick="onPublishMessage"/>
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height=".3dp"
-        android:visibility="visible"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

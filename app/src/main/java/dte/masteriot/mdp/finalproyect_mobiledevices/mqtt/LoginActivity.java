@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -36,11 +37,17 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onLoginClick(View view){
         eLogin = (EditText) findViewById(R.id.eUser);
-        String user = eLogin.getText().toString();
 
-        Intent i = new Intent(this, PahoExampleActivity.class);
-        i.putExtra("user", user);
-        startActivity(i);
+        if(!eLogin.getText().toString().isEmpty()) {
+            String user = eLogin.getText().toString();
+            Intent i = new Intent(this, PahoExampleActivity.class);
+            i.putExtra("user", user);
+            startActivity(i);
+        }
+        else{
+            Toast Tlogin = Toast.makeText(getApplicationContext(),"Your user name can't be empty", Toast.LENGTH_SHORT);
+            Tlogin.show();
+        }
 
     }
 

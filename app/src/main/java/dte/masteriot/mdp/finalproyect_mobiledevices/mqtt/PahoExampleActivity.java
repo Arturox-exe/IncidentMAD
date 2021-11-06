@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -36,8 +37,8 @@ import dte.masteriot.mdp.finalproyect_mobiledevices.R;
 
 public class PahoExampleActivity extends AppCompatActivity {
     final String serverUri = "tcp://192.168.1.46";
-    final String subscriptionTopic = "ubuntu/topic";
-    final String publishTopic = "ubuntu/topic";
+    final String subscriptionTopic = "incidents/madrid";
+    final String publishTopic = "incidents/madrid";
     private String currentDateTimeString = "";
     private String new_message = "";
     MqttAndroidClient mqttAndroidClient;
@@ -200,39 +201,44 @@ public class PahoExampleActivity extends AppCompatActivity {
     }
 */
     public void onPublishMessage(View view) {
-        currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
         EditText eMessage = (EditText) findViewById(R.id.eMessage);
-        MqttMessage message = new MqttMessage();
 
-
-        Bundle savedInstanceState = null;
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if(extras == null) {
-                user= null;
+        if(!eMessage.getText().toString().isEmpty()) {
+            currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+            MqttMessage message = new MqttMessage();
+            Bundle savedInstanceState = null;
+            if (savedInstanceState == null) {
+                Bundle extras = getIntent().getExtras();
+                if(extras == null) {
+                    user= null;
+                } else {
+                    user= extras.getString("user");
+                }
             } else {
-                user= extras.getString("user");
+                user= (String) savedInstanceState.getSerializable("user");
             }
-        } else {
-            user= (String) savedInstanceState.getSerializable("user");
+
+            String publish = currentDateTimeString + "\n" + "   " + user + ":   " + eMessage.getText().toString();
+            message.setPayload(publish.getBytes());
+            message.setRetained(false);
+            message.setQos(0);
+            try {
+                mqttAndroidClient.publish(publishTopic, message);
+                //addToHistory("Message Published");
+            } catch (Exception e) {
+                e.printStackTrace();
+                addToHistory(e.toString());
+            }
+
+            if (!mqttAndroidClient.isConnected()) {
+                addToHistory("Client not connected!");
+            }
         }
 
-
-
-        String publish = currentDateTimeString + "\n" + "   " + user + ":   " + eMessage.getText().toString();
-        message.setPayload(publish.getBytes());
-        message.setRetained(false);
-        message.setQos(0);
-        try {
-            mqttAndroidClient.publish(publishTopic, message);
-            //addToHistory("Message Published");
-        } catch (Exception e) {
-            e.printStackTrace();
-            addToHistory(e.toString());
+        else{
+            Toast Tmessage = Toast.makeText(getApplicationContext(),"Your message can't be empty", Toast.LENGTH_SHORT);
+            Tmessage.show();
         }
 
-        if (!mqttAndroidClient.isConnected()) {
-            addToHistory("Client not connected!");
-        }
     }
 }
