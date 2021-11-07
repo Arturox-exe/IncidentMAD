@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -17,6 +19,8 @@ import com.google.android.gms.maps.model.LatLng;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -27,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String URL_INCIDENTS = "https://informo.madrid.es/informo/tmadrid/incid_aytomadrid.xml";
     Button btIncidents, btStatistics, btForum;
+    public static Bitmap imageAccident, imageClose, imagePollution, imageWorks;
     public static final List<Incident> listOfIncidents = new ArrayList<>();
     ExecutorService es;
 
@@ -42,6 +47,20 @@ public class MainActivity extends AppCompatActivity {
         btIncidents= (Button) findViewById(R.id.incidents_button);
         btStatistics= (Button) findViewById(R.id.statistics_button);
         btForum= (Button) findViewById(R.id.forum_button);
+
+        try {
+            InputStream is = getAssets().open("accident.png");
+            imageAccident = BitmapFactory.decodeStream(is);
+            is = getAssets().open("close.png");
+            imageClose = BitmapFactory.decodeStream(is);
+            is = getAssets().open("pollution.png");
+            imagePollution = BitmapFactory.decodeStream(is);
+            is = getAssets().open("works.png");
+            imageWorks = BitmapFactory.decodeStream(is);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -64,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
             String description = "";
             String Long = "";
             String lat = "";
+            String incd_type = "";
 
             int eventType = parser.getEventType();
             while (eventType != XmlPullParser.END_DOCUMENT) {
@@ -78,13 +98,16 @@ public class MainActivity extends AppCompatActivity {
                     else if(elementName.equals("descripcion")){
                         description=parser.nextText();
                     }
+                    else if(elementName.equals("cod_tipo_incidencia")){
+                        incd_type= parser.nextText();
+                    }
                     else if(elementName.equals("longitud")){
                         Long=parser.nextText();
                     }
                     else if(elementName.equals("latitud")){
                         lat=parser.nextText();
                         LatLng coordinates = new LatLng(Double.parseDouble(lat), Double.parseDouble(Long));
-                        listOfIncidents.add(new Incident(name,cod,description,coordinates));
+                        listOfIncidents.add(new Incident(name,cod,description,coordinates,incd_type));
                     }
                 }
 
