@@ -8,12 +8,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
-import com.google.android.gms.maps.model.LatLng;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -84,11 +81,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                     else if(elementName.equals("latitud")){
                         lat=parser.nextText();
-                        LatLng coordenates = new LatLng(Double.parseDouble(lat), Double.parseDouble(Long));
-                        Log.e("SEGUIMIENTO", String.valueOf(coordenates));
-                        listOfIncidents.add(new Incident(name,cod,description,coordenates));
+                        listOfIncidents.add(new Incident(name,cod,description));
                     }
                 }
+
+                //LatLng coordenates = new LatLng(Double.parseDouble(Long), Double.parseDouble(lat));
+                //listOfIncidents.add(new Incident(name,cod,description,coordenates));
 
                 eventType = parser.next();
             }
@@ -106,6 +104,5 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this,StatisticsActivity.class);
         startActivity(i);
     }
-
 
 }

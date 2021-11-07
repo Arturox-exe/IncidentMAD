@@ -13,25 +13,26 @@ import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
 
     private List<Incident> incidents;
+    Context context;
 
-    private final MyViewHolder.ItemClickListener myClickListener;
 
-
-    public MyAdapter( List<Incident> listofitems, MyViewHolder.ItemClickListener clickListener) {
+    public MyAdapter(Context ctxt, List<Incident> listofitems) {
         super();
+        context = ctxt;
         incidents = listofitems;
-        this.myClickListener = clickListener;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        // this method has to actually inflate the item view and return the view holder
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.incident_card, parent, false);
-        return new MyViewHolder(v, myClickListener);
+        return new MyViewHolder(context, v);
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.bindValues(incidents.get(position));
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        final Incident incident = incidents.get(position);
+        holder.bindValues(incident);
     }
 
 

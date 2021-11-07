@@ -1,37 +1,33 @@
 package dte.masteriot.mdp.finalproyect_mobiledevices;
 
-
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+public class MyViewHolder extends RecyclerView.ViewHolder{
 
+    Context context;
     TextView title;
     TextView description;
-    ItemClickListener listener;
 
-    public MyViewHolder(View itemView, ItemClickListener listener) {
+    public MyViewHolder(Context ctxt, View itemView) {
         super(itemView);
+        context = ctxt;
         title = itemView.findViewById(R.id.title);
         description = itemView.findViewById(R.id.description);
-        this.listener = listener;
-        description.setOnClickListener(this);
     }
 
     void bindValues(Incident incident) {
+        // give values to the elements contained in the item view
         title.setText(incident.getName());
         description.setText(incident.getDescription());
-    }
-
-    @Override
-    public void onClick(View view) {
-        listener.onItemClick(getAdapterPosition(), view);
-    }
-
-    public interface ItemClickListener {
-        void onItemClick(int position, View v);
     }
 
 }
