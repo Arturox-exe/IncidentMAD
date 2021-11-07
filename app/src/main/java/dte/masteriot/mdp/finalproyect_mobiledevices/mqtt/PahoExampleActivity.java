@@ -111,7 +111,7 @@ public class PahoExampleActivity extends AppCompatActivity {
         //mqttConnectOptions.setCleanSession(false);
         mqttConnectOptions.setCleanSession(true);
         willPayload = "Client " + clientId + " disconnect";
-        mqttConnectOptions.setWill("android/topic", willPayload.getBytes(),1,true);
+        mqttConnectOptions.setWill("incidents/madrid", willPayload.getBytes(),1,true);
 
         //addToHistory("Connecting to " + serverUri + "...");
         try {

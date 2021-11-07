@@ -28,7 +28,7 @@
         <activity android:name="dte.masteriot.mdp.finalproyect_mobiledevices.IncidentsActivity" />
         <activity android:name="dte.masteriot.mdp.finalproyect_mobiledevices.mqtt.LoginActivity" />
         <activity android:name="dte.masteriot.mdp.finalproyect_mobiledevices.mqtt.RegisterActivity" />
-        <activity android:name="dte.masteriot.mdp.finalproyect_mobiledevices.mqtt.PahoExampleActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name="dte.masteriot.mdp.finalproyect_mobiledevices.mqtt.PahoExampleActivity" android:theme="@style/AppTheme.NoActionBar" android:configChanges="keyboardHidden|orientation|screenSize"/>
 
         <service android:name="org.eclipse.paho.android.service.MqttService"/>
     </application>
