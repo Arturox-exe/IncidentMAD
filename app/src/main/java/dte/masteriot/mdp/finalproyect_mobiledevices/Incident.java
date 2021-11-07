@@ -6,14 +6,13 @@ public class Incident {
     private final String name;
     private final String codInc;
     private final String description;
-    private final LatLng coordenates;
+    private final LatLng coordinates;
 
-    //Incident(String name, String cod, String description, LatLng coordenates) {
-    Incident(String name, String cod, String description)  {
+    Incident(String name, String cod, String description, LatLng coordinates) {
         this.name = name;
         this.codInc=cod;
         this.description=description;
-        this.coordenates = coordenates;
+        this.coordinates = coordinates;
     }
 
     String getName() {
@@ -28,8 +27,11 @@ public class Incident {
         return description;
     }
 
-    public LatLng getCoordenates() {
-        return coordenates;
+    public LatLng getCoordinates() {
+        return coordinates;
     }
 
+    boolean isLocationValid() {
+        return (coordinates != null);
+    }
 }

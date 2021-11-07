@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
@@ -81,12 +83,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                     else if(elementName.equals("latitud")){
                         lat=parser.nextText();
-                        listOfIncidents.add(new Incident(name,cod,description));
+                        LatLng coordinates = new LatLng(Double.parseDouble(lat), Double.parseDouble(Long));
+                        listOfIncidents.add(new Incident(name,cod,description,coordinates));
                     }
                 }
 
-                //LatLng coordenates = new LatLng(Double.parseDouble(Long), Double.parseDouble(lat));
-                //listOfIncidents.add(new Incident(name,cod,description,coordenates));
 
                 eventType = parser.next();
             }
