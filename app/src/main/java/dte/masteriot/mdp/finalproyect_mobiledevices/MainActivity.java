@@ -16,12 +16,13 @@ import java.util.concurrent.Executors;
 
 import dte.masteriot.mdp.finalproyect_mobiledevices.mqtt.LoginActivity;
 import dte.masteriot.mdp.finalproyect_mobiledevices.mqtt.PahoExampleActivity;
+import dte.masteriot.mdp.finalproyect_mobiledevices.mqtt.RegisterActivity;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String URL_INCIDENTS = "https://informo.madrid.es/informo/tmadrid/incid_aytomadrid.xml";
 
-    Button btIncidents, btStatistics, btForum;
+    Button btIncidents, btStatistics, btForum, btRegister;
     ExecutorService es;
 
     @Override
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         btIncidents= (Button) findViewById(R.id.incidents_button);
         btStatistics= (Button) findViewById(R.id.statistics_button);
         btForum= (Button) findViewById(R.id.forum_button);
+        btRegister= (Button) findViewById(R.id.forum_register_button);
 
         toggle_buttons(true);
 
@@ -64,6 +66,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void onForumClick(View view){
         Intent i = new Intent(this, LoginActivity.class);
+        startActivity(i);
+    }
+
+    public void onRegisterForumClick(View view){
+        Intent i = new Intent(this, RegisterActivity.class);
         startActivity(i);
     }
 
