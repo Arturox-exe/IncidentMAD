@@ -1,8 +1,5 @@
 package dte.masteriot.mdp.finalproyect_mobiledevices;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,11 +8,13 @@ import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import dte.masteriot.mdp.finalproyect_mobiledevices.mqtt.LoginActivity;
-import dte.masteriot.mdp.finalproyect_mobiledevices.mqtt.PahoExampleActivity;
 import dte.masteriot.mdp.finalproyect_mobiledevices.mqtt.RegisterActivity;
 
 public class MainActivity extends AppCompatActivity {

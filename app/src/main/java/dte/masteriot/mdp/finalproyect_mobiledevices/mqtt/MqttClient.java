@@ -1,21 +1,17 @@
 package dte.masteriot.mdp.finalproyect_mobiledevices.mqtt;
 
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
@@ -28,22 +24,20 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
-import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 import dte.masteriot.mdp.finalproyect_mobiledevices.R;
 
-public class PahoExampleActivity extends AppCompatActivity {
-    final String serverUri = "tcp://192.168.1.46";
+public class MqttClient extends AppCompatActivity {
+    final String serverUri = "tcp://2.137.213.175";
     final String subscriptionTopic = "incidents/madrid";
     final String publishTopic = "incidents/madrid";
     private String currentDateTimeString = "";
     private String new_message = "";
     MqttAndroidClient mqttAndroidClient;
     String clientId = "Client1";
-    private String willPayload;
     private HistoryAdapter mAdapter;
 
     String user;
@@ -57,15 +51,6 @@ public class PahoExampleActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-/*
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                publishMessage();
-            }
-        })*/;
 
         RecyclerView mRecyclerView = findViewById(R.id.history_recycler_view);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
@@ -82,11 +67,7 @@ public class PahoExampleActivity extends AppCompatActivity {
             public void connectComplete(boolean reconnect, String serverURI) {
 
                 if (reconnect) {
-                    //addToHistory("Reconnected to : " + serverURI);
-                    // Because Clean Session is true, we need to re-subscribe
                     subscribeToTopic();
-                } else {
-                    //addToHistory("Connected to: " + serverURI);
                 }
             }
 
@@ -108,10 +89,10 @@ public class PahoExampleActivity extends AppCompatActivity {
 
         MqttConnectOptions mqttConnectOptions = new MqttConnectOptions();
         mqttConnectOptions.setAutomaticReconnect(true);
-        //mqttConnectOptions.setCleanSession(false);
-        mqttConnectOptions.setCleanSession(true);
-        willPayload = "Client " + clientId + " disconnect";
-        mqttConnectOptions.setWill("incidents/madrid", willPayload.getBytes(),1,true);
+        mqttConnectOptions.setCleanSession(false);
+        //mqttConnectOptions.setCleanSession(true);
+        /*willPayload = "Client " + clientId + " disconnect";
+        mqttConnectOptions.setWill("incidents/madrid", willPayload.getBytes(),1,true);*/
 
         //addToHistory("Connecting to " + serverUri + "...");
         try {
@@ -161,45 +142,25 @@ public class PahoExampleActivity extends AppCompatActivity {
                 public void onSuccess(IMqttToken asyncActionToken) {
                     Toast Tsubscribe = Toast.makeText(getApplicationContext(),"Subscribed to: " + subscriptionTopic, Toast.LENGTH_SHORT);
                     Tsubscribe.show();
-                    //addToHistory("Subscribed to: " + subscriptionTopic);
+
                 }
 
                 @Override
                 public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
                     Toast Tsubscribe = Toast.makeText(getApplicationContext(),"Failed to subscribe", Toast.LENGTH_SHORT);
                     Tsubscribe.show();
-                    //addToHistory("Failed to subscribe");
+
                 }
             });
         } catch (MqttException e) {
             e.printStackTrace();
             Toast Tsubscribe = Toast.makeText(getApplicationContext(),e.toString(), Toast.LENGTH_SHORT);
             Tsubscribe.show();
-            //addToHistory(e.toString());
+
         }
 
     }
-/*
-    public void publishMessage() {
-        currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
-        MqttMessage message = new MqttMessage();
-        String publish = currentDateTimeString + "   " + new_message;
-        message.setPayload(publish.getBytes());
-        message.setRetained(false);
-        message.setQos(0);
-        try {
-            mqttAndroidClient.publish(publishTopic, message);
-            //addToHistory("Message Published");
-        } catch (Exception e) {
-            e.printStackTrace();
-            addToHistory(e.toString());
-        }
 
-        if (!mqttAndroidClient.isConnected()) {
-            addToHistory("Client not connected!");
-        }
-    }
-*/
     public void onPublishMessage(View view) {
         EditText eMessage = (EditText) findViewById(R.id.eMessage);
 
@@ -219,12 +180,13 @@ public class PahoExampleActivity extends AppCompatActivity {
             }
 
             String publish = currentDateTimeString + "\n" + "   " + user + ":   " + eMessage.getText().toString();
+            eMessage.setText("");
             message.setPayload(publish.getBytes());
             message.setRetained(false);
             message.setQos(0);
             try {
                 mqttAndroidClient.publish(publishTopic, message);
-                //addToHistory("Message Published");
+
             } catch (Exception e) {
                 e.printStackTrace();
                 addToHistory(e.toString());

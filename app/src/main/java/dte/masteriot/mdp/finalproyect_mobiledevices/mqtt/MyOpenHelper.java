@@ -6,12 +6,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-import android.widget.CursorAdapter;
-import android.widget.SimpleCursorAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MyOpenHelper extends SQLiteOpenHelper {
     private static final String USERS_TABLE_CREATE = "CREATE TABLE users(_id INTEGER PRIMARY KEY AUTOINCREMENT, user TEXT, password TEXT)";
@@ -28,16 +22,8 @@ public class MyOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(USERS_TABLE_CREATE);
-        //mockData();
+
     }
-
-    private void mockData() {
-        Log.d("AQUIIIIII", "MockData");
-        Boolean hola = insertar("Arturo", "password");
-    }
-
-
-
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -74,13 +60,13 @@ public class MyOpenHelper extends SQLiteOpenHelper {
         Cursor c = db.rawQuery(" SELECT _id, user, password FROM users WHERE user=? ", args);
 
         if (c != null && c.getCount()>0) {
-            //do {
+
                 c.moveToFirst();
                 String user = c.getString(c.getColumnIndexOrThrow("user"));
                 String password = c.getString(c.getColumnIndexOrThrow("password"));
                 int id = c.getInt(c.getColumnIndexOrThrow("_id"));
                 usr = new User(id, user, password);
-            //} while (c.moveToNext());
+
         }
 
 
@@ -89,29 +75,5 @@ public class MyOpenHelper extends SQLiteOpenHelper {
     }
 
 
-/*
-    //Obtener la lista de comentarios en la base de datos
-    public ArrayList<User> getUsers(){
-        //Creamos el cursor
-        ArrayList<User> lista=new ArrayList<User>();
-        Cursor c = db.rawQuery("select _id, user,comment from comments", null);
-        if (c != null && c.getCount()>0) {
-            c.moveToFirst();
-            do {
-                //Asignamos el valor en nuestras variables para crear un nuevo objeto Comentario
-                String user = c.getString(c.getColumnIndexOrThrow("user"));
-                String comment = c.getString(c.getColumnIndexOrThrow("password"));
-                int id=c.getInt(c.getColumnIndexOrThrow("_id"));
-                User com =new User(id,user,comment);
-                //Añadimos el comentario a la lista
-                lista.add(com);
-            } while (c.moveToNext());
-        }
 
-        //Cerramos el cursor
-        c.close();
-        return lista;
-    }
-
-*/
 }
