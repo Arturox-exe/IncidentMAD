@@ -58,11 +58,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".IncidentsActivity" />
+        <activity android:name=".incidents.IncidentsActivity" />
         <activity android:name=".StatisticsActivity" />
 
 
-        <activity android:name="dte.masteriot.mdp.finalproyect_mobiledevices.IncidentsActivity" />
+        <activity android:name="dte.masteriot.mdp.finalproyect_mobiledevices.incidents.IncidentsActivity" />
         <activity android:name="dte.masteriot.mdp.finalproyect_mobiledevices.mqtt.LoginActivity" />
         <activity android:name="dte.masteriot.mdp.finalproyect_mobiledevices.mqtt.RegisterActivity" />
         <activity android:name="dte.masteriot.mdp.finalproyect_mobiledevices.mqtt.MqttClient" android:theme="@style/AppTheme.NoActionBar" android:configChanges="keyboardHidden|orientation|screenSize"/>

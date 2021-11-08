@@ -1,4 +1,4 @@
-package dte.masteriot.mdp.finalproyect_mobiledevices;
+package dte.masteriot.mdp.finalproyect_mobiledevices.incidents;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class IncidentsActivity extends AppCompatActivity implements MyViewHolder.ItemClickListener{
+import dte.masteriot.mdp.finalproyect_mobiledevices.MainActivity;
+import dte.masteriot.mdp.finalproyect_mobiledevices.MapsActivity;
+import dte.masteriot.mdp.finalproyect_mobiledevices.R;
+
+public class IncidentsActivity extends AppCompatActivity implements MyViewHolder.ItemClickListener {
 
     private RecyclerView recyclerView;
     private MyAdapter recyclerViewAdapter;

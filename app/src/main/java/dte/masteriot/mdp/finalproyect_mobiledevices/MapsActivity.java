@@ -1,5 +1,6 @@
 package dte.masteriot.mdp.finalproyect_mobiledevices;
 
+import dte.masteriot.mdp.finalproyect_mobiledevices.incidents.Incident;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
 import android.app.AlertDialog;

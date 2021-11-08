@@ -1,6 +1,6 @@
 package dte.masteriot.mdp.finalproyect_mobiledevices;
 
-
+import dte.masteriot.mdp.finalproyect_mobiledevices.incidents.Incident;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
@@ -15,7 +15,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+
 import com.google.android.gms.maps.model.LatLng;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -27,13 +27,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
+import dte.masteriot.mdp.finalproyect_mobiledevices.incidents.IncidentsActivity;
 import dte.masteriot.mdp.finalproyect_mobiledevices.mqtt.LoginActivity;
 import dte.masteriot.mdp.finalproyect_mobiledevices.mqtt.RegisterActivity;
 
@@ -127,7 +121,8 @@ public class MainActivity extends AppCompatActivity {
                     else if(elementName.equals("latitud")){
                         lat = parser.nextText();
                         LatLng coordinates = new LatLng(Double.parseDouble(lat), Double.parseDouble(Long));
-                        listOfIncidents.add(new Incident(name, description, startDate, endDate, coordinates, incd_type));
+                        Incident incident = new Incident(name, description, startDate, endDate, coordinates, incd_type);
+                        listOfIncidents.add(incident);
                     }
                 }
                 eventType = parser.next();
@@ -149,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onIncidentsClick(View view) {
-        Intent i = new Intent(this,IncidentsActivity.class);
+        Intent i = new Intent(this, IncidentsActivity.class);
         startActivity(i);
     }
 

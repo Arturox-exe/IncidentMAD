@@ -2,7 +2,7 @@ package dte.masteriot.mdp.finalproyect_mobiledevices;
 
 import android.graphics.Color;
 import android.os.Bundle;
-
+import dte.masteriot.mdp.finalproyect_mobiledevices.incidents.Incident;
 import androidx.appcompat.app.AppCompatActivity;
 import com.bendaschel.sevensegmentview.SevenSegmentView;
 import com.github.mikephil.charting.charts.BarChart;

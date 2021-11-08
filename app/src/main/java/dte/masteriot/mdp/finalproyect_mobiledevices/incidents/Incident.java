@@ -1,4 +1,4 @@
-package dte.masteriot.mdp.finalproyect_mobiledevices;
+package dte.masteriot.mdp.finalproyect_mobiledevices.incidents;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -10,7 +10,7 @@ public class Incident {
     private final LatLng coordinates;
     private final String incd_type;
 
-    Incident(String name, String description, String startDate, String endDate, LatLng coordinates, String incd_type) {
+    public Incident(String name, String description, String startDate, String endDate, LatLng coordinates, String incd_type) {
         this.name = name;
         this.description = description;
         this.incd_type = incd_type;
