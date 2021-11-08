@@ -38,14 +38,10 @@ public class StatisticsActivity extends AppCompatActivity {
 
     public void typeOfIncident(){
         List<Incident> listOfIncidents= MainActivity.listOfIncidents;
-        for (int i=0; i< listOfIncidents.size(); i++){
+        for (int i = 0 ; i < listOfIncidents.size() ; i++){
             switch (listOfIncidents.get(i).getType() ){
                 case "RMK":
-                    works++;
-                    break;
                 case "RWK":
-                    works++;
-                    break;
                 case "RWL":
                     works++;
                     break;
@@ -68,9 +64,9 @@ public class StatisticsActivity extends AppCompatActivity {
     public void representationDisplay(int incidents){
         int u,d,c;
 
-        c=incidents/100;
-        d=(incidents-(c*100))/10;
-        u=(incidents-(c*100+d*10));
+        c = incidents / 100;
+        d = (incidents - (c * 100)) / 10;
+        u = (incidents -(c * 100 + d * 10));
 
         display3.setCurrentValue(c);
         display2.setCurrentValue(d);
@@ -78,7 +74,7 @@ public class StatisticsActivity extends AppCompatActivity {
     }
 
     public void numberOfIncidents(){
-        int n_incidents=MainActivity.listOfIncidents.size();
+        int n_incidents = MainActivity.listOfIncidents.size();
         representationDisplay(n_incidents);
     }
 
@@ -105,19 +101,17 @@ public class StatisticsActivity extends AppCompatActivity {
         leftAxis.setDrawAxisLine(false);;
         chart.getAxisRight().setEnabled(false);
 
-
         ArrayList<BarEntry> values1 = new ArrayList<>();
         ArrayList<BarEntry> values2 = new ArrayList<>();
         ArrayList<BarEntry> values3 = new ArrayList<>();
         ArrayList<BarEntry> values4 = new ArrayList<>();
         ArrayList<BarEntry> values5 = new ArrayList<>();
-        BarDataSet set1, set2, set3, set4, set5;
 
         values1.add(new BarEntry(1, works));
         values2.add(new BarEntry(2, accidents));
         values3.add(new BarEntry(3, closeStreet));
         values4.add(new BarEntry(4, pollution));
-        values4.add(new BarEntry(5, unknown));
+        values5.add(new BarEntry(5, unknown));
 
         int colorWorks = Color.parseColor("#FFBB86FC");
         int colorAccident = Color.parseColor("#FF3700B3");
@@ -125,6 +119,7 @@ public class StatisticsActivity extends AppCompatActivity {
         int colorPollution = Color.parseColor("#33FF60");
         int colorUnknown = Color.RED;
 
+        BarDataSet set1, set2, set3, set4, set5;
         set1 = new BarDataSet(values1, "Works");
         set1.setColor(colorWorks);
         set2 = new BarDataSet(values2, "Accidents");
@@ -133,7 +128,7 @@ public class StatisticsActivity extends AppCompatActivity {
         set3.setColor(colorCloseStreet);
         set4 = new BarDataSet(values4, "Pollution");
         set4.setColor(colorPollution);
-        set5 = new BarDataSet(values4, "Unknown");
+        set5 = new BarDataSet(values5, "Unknown");
         set5.setColor(colorUnknown);
 
         BarData data = new BarData(set1, set2, set3, set4, set5);

@@ -1,14 +1,9 @@
 package dte.masteriot.mdp.finalproyect_mobiledevices;
 
-
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.List;
 
 public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 

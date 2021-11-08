@@ -1,13 +1,9 @@
 package dte.masteriot.mdp.finalproyect_mobiledevices;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
@@ -15,7 +11,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
     private List<Incident> incidents;
 
     private final MyViewHolder.ItemClickListener myClickListener;
-
 
     public MyAdapter( List<Incident> listofitems, MyViewHolder.ItemClickListener clickListener) {
         super();

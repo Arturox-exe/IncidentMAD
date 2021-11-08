@@ -2,7 +2,8 @@ package dte.masteriot.mdp.finalproyect_mobiledevices;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,20 +13,15 @@ import android.os.Looper;
 import android.os.Message;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-
 import com.google.android.gms.maps.model.LatLng;
-
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,9 +40,9 @@ public class MainActivity extends AppCompatActivity {
         LoadURLContents loadURLContents = new LoadURLContents(handler, URL_INCIDENTS);
         es.execute(loadURLContents);
 
-        btIncidents= (Button) findViewById(R.id.incidents_button);
-        btStatistics= (Button) findViewById(R.id.statistics_button);
-        btForum= (Button) findViewById(R.id.forum_button);
+        btIncidents = findViewById(R.id.incidents_button);
+        btStatistics = findViewById(R.id.statistics_button);
+        btForum = findViewById(R.id.forum_button);
 
         try {
             InputStream is = getAssets().open("accident.png");
@@ -59,11 +55,9 @@ public class MainActivity extends AppCompatActivity {
             imageWorks = BitmapFactory.decodeStream(is);
             is = getAssets().open("alert.png");
             imageAlert = BitmapFactory.decodeStream(is);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     Handler handler = new Handler(Looper.getMainLooper()) {
@@ -75,49 +69,61 @@ public class MainActivity extends AppCompatActivity {
 
     private void parseXml() {
         try {
-
             XmlPullParser parser = XmlPullParserFactory.newInstance().newPullParser();
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
             parser.setInput(LoadURLContents.is, null);
 
             String name = "";
-            String cod = "";
             String description = "";
             String Long = "";
             String lat = "";
             String incd_type = "";
+            String startDate = "";
+            String endDate = "";
 
             int eventType = parser.getEventType();
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 if (eventType == XmlPullParser.START_TAG) {
                     String elementName = parser.getName();
                     if (elementName.equals("nom_tipo_incidencia")) {
-                        name=parser.nextText();
-                    }
-                    else if(elementName.equals("tipoincid")){
-                        cod=parser.nextText();
+                        name = parser.nextText();
                     }
                     else if(elementName.equals("descripcion")){
-                        description=parser.nextText();
+                        description = parser.nextText();
                     }
                     else if(elementName.equals("cod_tipo_incidencia")){
-                        incd_type= parser.nextText();
+                        incd_type = parser.nextText();
+                    }
+                    else if(elementName.equals("fh_inicio")){
+                        startDate = parser.nextText();
+                    }
+                    else if(elementName.equals("fh_final")){
+                        endDate = parser.nextText();
                     }
                     else if(elementName.equals("longitud")){
-                        Long=parser.nextText();
+                        Long = parser.nextText();
                     }
                     else if(elementName.equals("latitud")){
-                        lat=parser.nextText();
+                        lat = parser.nextText();
                         LatLng coordinates = new LatLng(Double.parseDouble(lat), Double.parseDouble(Long));
-                        listOfIncidents.add(new Incident(name,cod,description,coordinates,incd_type));
+                        listOfIncidents.add(new Incident(name, description, startDate, endDate, coordinates, incd_type));
                     }
                 }
-
-
                 eventType = parser.next();
             }
         } catch (Exception e) {
-            Toast.makeText(this, "Error:" + e.toString(), Toast.LENGTH_SHORT).show();
+            AlertDialog.Builder connection = new AlertDialog.Builder(MainActivity.this);
+            connection.setMessage("The application needs Internet connection.\nTry again later.");
+            connection.setCancelable(true).setNegativeButton("Close app", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            AlertDialog info = connection.create();
+            info.setTitle("CONNECTION FAILED");
+            info.show();
+            e.toString();
         }
     }
 

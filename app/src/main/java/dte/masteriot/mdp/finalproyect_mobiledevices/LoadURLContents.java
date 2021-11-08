@@ -3,7 +3,6 @@ package dte.masteriot.mdp.finalproyect_mobiledevices;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -12,7 +11,7 @@ import java.net.URL;
 public class LoadURLContents implements Runnable {
 
     public static InputStream is;
-    Handler creator;
+    public Handler creator;
     private String string_URL;
 
     public LoadURLContents(Handler handler,  String strURL) {
