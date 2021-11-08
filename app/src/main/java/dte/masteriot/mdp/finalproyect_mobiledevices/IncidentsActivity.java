@@ -38,7 +38,7 @@ public class IncidentsActivity extends AppCompatActivity implements MyViewHolder
 
         if (incident.isLocationValid()) {
             Intent mapIntent = new Intent(this, MapsActivity.class);
-            MapsActivity.appendExtraForMarker(mapIntent, incident.getCoordinates(), incident.getName(), true, incident.getDescription());
+            MapsActivity.appendExtraForMarker(mapIntent, incident.getCoordinates(), incident.getName(), true, incident.getDescription(), incident.getType(), position);
             mapIntent.putExtra("type", "Individual");
             startActivity(mapIntent);
         }

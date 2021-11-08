@@ -2,7 +2,6 @@ package dte.masteriot.mdp.finalproyect_mobiledevices;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.bendaschel.sevensegmentview.SevenSegmentView;
@@ -20,7 +19,7 @@ public class StatisticsActivity extends AppCompatActivity {
 
     private SevenSegmentView display1, display2, display3;
     private BarChart chart;
-    int works, closeStreet, accidents, event, pollution, planned, unknown;
+    int works, closeStreet, accidents, pollution, unknown;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,23 +39,23 @@ public class StatisticsActivity extends AppCompatActivity {
     public void typeOfIncident(){
         List<Incident> listOfIncidents= MainActivity.listOfIncidents;
         for (int i=0; i< listOfIncidents.size(); i++){
-            switch (listOfIncidents.get(i).getCodInc() ){
-                case "1":
+            switch (listOfIncidents.get(i).getType() ){
+                case "RMK":
                     works++;
                     break;
-                case "2":
-                    accidents++;
+                case "RWK":
+                    works++;
                     break;
-                case "3":
+                case "RWL":
+                    works++;
+                    break;
+                case "LCS":
                     closeStreet++;
                     break;
-                case "4":
-                    event++;
+                case "ACI":
+                    accidents++;
                     break;
-                case "5":
-                    planned++;
-                    break;
-                case "10":
+                case "EXS":
                     pollution++;
                     break;
                 default:
@@ -112,25 +111,19 @@ public class StatisticsActivity extends AppCompatActivity {
         ArrayList<BarEntry> values3 = new ArrayList<>();
         ArrayList<BarEntry> values4 = new ArrayList<>();
         ArrayList<BarEntry> values5 = new ArrayList<>();
-        ArrayList<BarEntry> values6 = new ArrayList<>();
-        ArrayList<BarEntry> values7 = new ArrayList<>();
-        BarDataSet set1, set2, set3, set4, set5, set6, set7;
+        BarDataSet set1, set2, set3, set4, set5;
 
         values1.add(new BarEntry(1, works));
         values2.add(new BarEntry(2, accidents));
         values3.add(new BarEntry(3, closeStreet));
-        values4.add(new BarEntry(4, event));
-        values5.add(new BarEntry(5, planned));
-        values6.add(new BarEntry(6, pollution));
-        values7.add(new BarEntry(7, unknown));
+        values4.add(new BarEntry(4, pollution));
+        values4.add(new BarEntry(5, unknown));
 
         int colorWorks = Color.parseColor("#FFBB86FC");
-        int colorAccident = Color.parseColor("#FF03DAC5");
-        int colorCloseStreet = Color.parseColor("#FF3700B3");
-        int colorEvent = Color.parseColor("#FF018786");
-        int colorPlanned= Color.parseColor("#FF5733");
+        int colorAccident = Color.parseColor("#FF3700B3");
+        int colorCloseStreet = Color.parseColor("#FF03DAC5");
         int colorPollution = Color.parseColor("#33FF60");
-        int colorUnknown = Color.parseColor("#33A1FF");
+        int colorUnknown = Color.RED;
 
         set1 = new BarDataSet(values1, "Works");
         set1.setColor(colorWorks);
@@ -138,16 +131,12 @@ public class StatisticsActivity extends AppCompatActivity {
         set2.setColor(colorAccident);
         set3 = new BarDataSet(values3, "Close Street");
         set3.setColor(colorCloseStreet);
-        set4 = new BarDataSet(values4, "Event");
-        set4.setColor(colorEvent);
-        set5 = new BarDataSet(values5, "Planned Incidents");
-        set5.setColor(colorPlanned);
-        set6 = new BarDataSet(values6, "Pollution");
-        set6.setColor(colorPollution);
-        set7 = new BarDataSet(values7, "Unknown");
-        set7.setColor(colorUnknown);
+        set4 = new BarDataSet(values4, "Pollution");
+        set4.setColor(colorPollution);
+        set5 = new BarDataSet(values4, "Unknown");
+        set5.setColor(colorUnknown);
 
-        BarData data = new BarData(set1, set2, set3, set4, set5, set6, set7);
+        BarData data = new BarData(set1, set2, set3, set4, set5);
         data.setBarWidth(0.9f);
         chart.setData(data);
     }

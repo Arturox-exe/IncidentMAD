@@ -44,11 +44,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
     void setImage(Incident incident){
         switch (incident.getType()){
             case "RMK":
-                imageView.setImageBitmap(MainActivity.imageWorks);
-                break;
             case "RWK":
-                imageView.setImageBitmap(MainActivity.imageWorks);
-                break;
             case "RWL":
                 imageView.setImageBitmap(MainActivity.imageWorks);
                 break;
@@ -58,8 +54,11 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
             case "LCS":
                 imageView.setImageBitmap(MainActivity.imageClose);
                 break;
-            default:
+            case "EXS":
                 imageView.setImageBitmap(MainActivity.imagePollution);
+                break;
+            default:
+                imageView.setImageBitmap(MainActivity.imageAlert);
                 break;
         }
     }
