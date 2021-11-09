@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorPrimary"
         android:textColor="@color/white"
-        android:text="Current position"
+        android:text="Activate Current position"
         android:layout_gravity="center"
         android:textAllCaps="false"
         android:onClick="onCurrentPositionClicked"
@@ -22,7 +22,7 @@
         android:id="@+id/distanceId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Adios"
+        android:text=""
         android:layout_gravity="center"
         android:textAlignment="center"
         android:textSize="15dp" />

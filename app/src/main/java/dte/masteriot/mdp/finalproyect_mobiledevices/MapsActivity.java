@@ -57,6 +57,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private LatLng position;
     private float distance;
     TextView tvDistance;
+    Button bPosition;
 
     LocationCallback locationCallback = new LocationCallback() {
         @Override
@@ -83,11 +84,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        tvDistance = (TextView) findViewById(R.id.distanceId);
-
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        tvDistance = (TextView) findViewById(R.id.distanceId);
+        bPosition = (Button) findViewById(R.id.position);
         locationRequest = LocationRequest.create();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -177,10 +178,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     getCurrentLocation();
                 }
                 position_b = true;
+                bPosition.setText("Disable Current Position");
             } else {
                 polyline.remove();
                 currentPositionMarker.remove();
                 position_b = false;
+                bPosition.setText("Activate Current Position");
             }
         }
         else if(intent.getStringExtra("type").equals("Multiple")){
@@ -228,7 +231,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         locMarker.setLatitude(coordinates.latitude);
         locMarker.setLongitude(coordinates.longitude);
         distance = locPosition.distanceTo(locMarker)/1000;
-        Log.e("SEGUIMIENTO", String.valueOf(distance));
-        tvDistance.setText("Distance to the incident: " + distance + " Km");
+        String distance_string = String.format("%.2f", distance);
+        tvDistance.setText("Distance to the incident: " + distance_string + " Km");
     }
+
 }
