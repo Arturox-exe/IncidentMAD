@@ -53,8 +53,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Polyline polyline;
     private Marker currentPositionMarker;
     private Intent intent;
+    private boolean init = true;
     private String type = "";
-    private LatLng position;
+    public static LatLng position;
     private float distance;
     TextView tvDistance;
     Button bPosition;
@@ -66,16 +67,24 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             if(locationResult == null){
                 return;
             }
-            for(Location location: locationResult.getLocations()){
-                position = new LatLng(location.getLatitude(),location.getLongitude());
-                currentPositionMarker = mMap.addMarker(new MarkerOptions().position(position).title("Current position"));
-                getDistance();
-                if(type.equals("Individual")){
-                    polyline = mMap.addPolyline(new PolylineOptions().add(position, coordinates));
+            if(init){
+                for (Location location : locationResult.getLocations()) {
+                    position = new LatLng(location.getLatitude(), location.getLongitude());
                 }
+                fusedLocationProviderClient.removeLocationUpdates(this);
+                init = false;
             }
-            fusedLocationProviderClient.removeLocationUpdates(this);
-
+            else {
+                for (Location location : locationResult.getLocations()) {
+                    position = new LatLng(location.getLatitude(), location.getLongitude());
+                    currentPositionMarker = mMap.addMarker(new MarkerOptions().position(position).title("Current position"));
+                    getDistance();
+                    if (type.equals("Individual")) {
+                        polyline = mMap.addPolyline(new PolylineOptions().add(position, coordinates));
+                    }
+                }
+                fusedLocationProviderClient.removeLocationUpdates(this);
+            }
         }
     };
 
@@ -94,6 +103,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        if (ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
+            requestPermissions(new String[]{ACCESS_FINE_LOCATION}, 1);
+        } else {
+            getCurrentLocation();
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -172,11 +187,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onCurrentPositionClicked (View v){
         if(intent.getStringExtra("type").equals("Individual")) {
             if (!position_b) {
-                if (ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
-                    requestPermissions(new String[]{ACCESS_FINE_LOCATION}, 1);
-                } else {
-                    getCurrentLocation();
-                }
+                getCurrentLocation();
                 position_b = true;
                 bPosition.setText("Disable Current Position");
             } else {
@@ -188,11 +199,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
         else if(intent.getStringExtra("type").equals("Multiple")){
             if (!position_b) {
-                if (ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
-                    requestPermissions(new String[]{ACCESS_FINE_LOCATION}, 1);
-                } else {
-                    getCurrentLocation();
-                }
+                getCurrentLocation();
                 position_b = true;
             } else {
                 currentPositionMarker.remove();
@@ -218,7 +225,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     @SuppressLint("MissingPermission")
-    void getCurrentLocation(){
+    public void getCurrentLocation(){
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, getMainLooper());
     }

@@ -1,17 +1,35 @@
 package dte.masteriot.mdp.finalproyect_mobiledevices.mqtt;
 
 
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+
+import android.annotation.SuppressLint;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
@@ -28,6 +46,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import dte.masteriot.mdp.finalproyect_mobiledevices.MapsActivity;
 import dte.masteriot.mdp.finalproyect_mobiledevices.R;
 
 public class MqttClient extends AppCompatActivity {
@@ -39,11 +58,12 @@ public class MqttClient extends AppCompatActivity {
     MqttAndroidClient mqttAndroidClient;
     String clientId = "Client1";
     private HistoryAdapter mAdapter;
-
     String user;
+    private LocationRequest locationRequest;
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    LatLng position;
 
-
-
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +71,7 @@ public class MqttClient extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+        locationRequest = LocationRequest.create();
         RecyclerView mRecyclerView = findViewById(R.id.history_recycler_view);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -60,6 +80,12 @@ public class MqttClient extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
 
         clientId = clientId + System.currentTimeMillis();
+
+        if (ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
+            requestPermissions(new String[]{ACCESS_FINE_LOCATION}, 1);
+        } else {
+            getCurrentLocation();
+        }
 
         mqttAndroidClient = new MqttAndroidClient(getApplicationContext(), serverUri, clientId);
         mqttAndroidClient.setCallback(new MqttCallbackExtended() {
@@ -90,11 +116,6 @@ public class MqttClient extends AppCompatActivity {
         MqttConnectOptions mqttConnectOptions = new MqttConnectOptions();
         mqttConnectOptions.setAutomaticReconnect(true);
         mqttConnectOptions.setCleanSession(false);
-        //mqttConnectOptions.setCleanSession(true);
-        /*willPayload = "Client " + clientId + " disconnect";
-        mqttConnectOptions.setWill("incidents/madrid", willPayload.getBytes(),1,true);*/
-
-        //addToHistory("Connecting to " + serverUri + "...");
         try {
             mqttAndroidClient.connect(mqttConnectOptions, null, new IMqttActionListener() {
                 @Override
@@ -161,6 +182,7 @@ public class MqttClient extends AppCompatActivity {
 
     }
 
+
     public void onPublishMessage(View view) {
         EditText eMessage = (EditText) findViewById(R.id.eMessage);
 
@@ -179,7 +201,8 @@ public class MqttClient extends AppCompatActivity {
                 user= (String) savedInstanceState.getSerializable("user");
             }
 
-            String publish = currentDateTimeString + "\n" + "   " + user + ":   " + eMessage.getText().toString();
+            String string_position = position.toString();
+            String publish = currentDateTimeString + " [" + string_position + "]" + "\n" + "   " + user + ":   " + eMessage.getText().toString();
             eMessage.setText("");
             message.setPayload(publish.getBytes());
             message.setRetained(false);
@@ -202,5 +225,41 @@ public class MqttClient extends AppCompatActivity {
             Tmessage.show();
         }
 
+    }
+
+    LocationCallback locationCallback = new LocationCallback() {
+        @Override
+        public void onLocationResult(LocationResult locationResult) {
+            super.onLocationResult(locationResult);
+            if(locationResult == null){
+                return;
+            }
+            for (Location location : locationResult.getLocations()) {
+                position = new LatLng(location.getLatitude(), location.getLongitude());
+            }
+            fusedLocationProviderClient.removeLocationUpdates(this);
+        }
+    };
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 1:
+                if (grantResults.length > 0 && grantResults[0] == PERMISSION_GRANTED) {
+                    Log.w("PERMISSION", "permission granted");
+                    getCurrentLocation();
+                } else {
+                    Log.w("PERMISSION", "permission NOT granted");
+                }
+                return;
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    public void getCurrentLocation(){
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, getMainLooper());
     }
 }
