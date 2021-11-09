@@ -11,13 +11,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center">
-
-
         <EditText
             android:id="@+id/eUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="User"
             android:inputType="textPersonName" />
 
         <EditText
@@ -25,14 +24,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPassword" />
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:layout_marginTop="20dp" />
         <Button
             android:id="@+id/login_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:onClick="onLoginClick"
-            android:text="Login" />
+            android:text="Login"
+            android:layout_marginTop="20dp"/>
+
+        <Button
+            android:id="@+id/forum_register_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="onRegisterClick"
+            android:text="Register"
+            android:layout_marginTop="100dp"/>
 
     </LinearLayout>
 

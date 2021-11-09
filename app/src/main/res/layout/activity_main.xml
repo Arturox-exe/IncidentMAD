@@ -36,15 +36,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:onClick="onForumClick"
-            android:text="Login Forum" />
-
-        <Button
-            android:id="@+id/forum_register_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:onClick="onRegisterForumClick"
-            android:text="Register Forum" />
+            android:text="Forum" />
 
 
     </LinearLayout>

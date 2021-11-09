@@ -18,6 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="User"
             android:inputType="textPersonName" />
 
         <EditText
@@ -25,14 +26,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPassword" />
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:layout_marginTop="20dp" />
 
         <EditText
             android:id="@+id/eRPasswordUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPassword" />
+            android:hint="Repeat Password"
+            android:inputType="textPassword"
+            android:layout_marginTop="20dp"/>
 
         <Button
             android:id="@+id/register_button"
@@ -40,7 +45,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:onClick="onRegisterClick"
-            android:text="Register" />
+            android:text="Register"
+            android:layout_marginTop="20dp"/>
 
     </LinearLayout>
 

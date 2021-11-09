@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String URL_INCIDENTS = "https://informo.madrid.es/informo/tmadrid/incid_aytomadrid.xml";
 
-    Button btIncidents, btStatistics, btForum, btRegister;
+    Button btIncidents, btStatistics, btForum;
     public static Bitmap imageAccident, imageClose, imagePollution, imageWorks, imageAlert;
 
     public static final List<Incident> listOfIncidents = new ArrayList<>();
@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         btIncidents= (Button) findViewById(R.id.incidents_button);
         btStatistics= (Button) findViewById(R.id.statistics_button);
         btForum= (Button) findViewById(R.id.forum_button);
-        btRegister= (Button) findViewById(R.id.forum_register_button);
 
 
         try {
@@ -150,11 +149,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void onForumClick(View view){
         Intent i = new Intent(this, LoginActivity.class);
-        startActivity(i);
-    }
-
-    public void onRegisterForumClick(View view){
-        Intent i = new Intent(this, RegisterActivity.class);
         startActivity(i);
     }
 
