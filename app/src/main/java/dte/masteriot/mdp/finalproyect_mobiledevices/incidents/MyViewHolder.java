@@ -22,6 +22,8 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
         imageView = itemView.findViewById(R.id.ImageView);
         this.listener = listener;
         description.setOnClickListener(this);
+        title.setOnClickListener(this);
+        imageView.setOnClickListener(this);
     }
 
     void bindValues(Incident incident) {
