@@ -3,12 +3,19 @@ package dte.masteriot.mdp.finalproyect_mobiledevices;
 import dte.masteriot.mdp.finalproyect_mobiledevices.incidents.Incident;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -32,7 +39,7 @@ import dte.masteriot.mdp.finalproyect_mobiledevices.mqtt.LoginActivity;
 import dte.masteriot.mdp.finalproyect_mobiledevices.mqtt.RegisterActivity;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     private static final String URL_INCIDENTS = "https://informo.madrid.es/informo/tmadrid/incid_aytomadrid.xml";
 
@@ -41,12 +48,20 @@ public class MainActivity extends AppCompatActivity {
 
     public static final List<Incident> listOfIncidents = new ArrayList<>();
 
+    private SensorManager sensorManager;
+    private Sensor lightSensor;
+
     ExecutorService es;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        sensorManager.registerListener(MainActivity.this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
+
 
         es = Executors.newSingleThreadExecutor();
         LoadURLContents loadURLContents = new LoadURLContents(handler, URL_INCIDENTS);
@@ -141,6 +156,23 @@ public class MainActivity extends AppCompatActivity {
             info.show();
             e.toString();
         }
+    }
+
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        if (sensorEvent.sensor.getType() == Sensor.TYPE_LIGHT) {
+            // Show the sensor's value in the UI:
+            if(10 > (sensorEvent.values[0])) {
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            }
+            else{
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+
     }
 
     public void onIncidentsClick(View view) {

@@ -22,6 +22,9 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
+
 
 
     <application
@@ -60,12 +63,9 @@
 
         <activity android:name=".incidents.IncidentsActivity" />
         <activity android:name=".StatisticsActivity" />
-
-
-        <activity android:name="dte.masteriot.mdp.finalproyect_mobiledevices.incidents.IncidentsActivity" />
         <activity android:name="dte.masteriot.mdp.finalproyect_mobiledevices.mqtt.LoginActivity" />
         <activity android:name="dte.masteriot.mdp.finalproyect_mobiledevices.mqtt.RegisterActivity" />
-        <activity android:name="dte.masteriot.mdp.finalproyect_mobiledevices.mqtt.MqttClient" android:theme="@style/AppTheme.NoActionBar" android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name="dte.masteriot.mdp.finalproyect_mobiledevices.mqtt.MqttClient" android:theme="@style/AppTheme.NoActionBar" android:configChanges="keyboardHidden|orientation|screenSize|uiMode"/>
 
         <service android:name="org.eclipse.paho.android.service.MqttService"/>
 
