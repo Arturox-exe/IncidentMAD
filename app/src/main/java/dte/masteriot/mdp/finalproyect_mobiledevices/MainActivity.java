@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             AlertDialog.Builder connection = new AlertDialog.Builder(MainActivity.this);
             connection.setMessage("The application needs Internet connection.\nTry again later.");
-            connection.setCancelable(true).setNegativeButton("Close app", new DialogInterface.OnClickListener() {
+            connection.setCancelable(false).setNegativeButton("Close app", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     finish();
