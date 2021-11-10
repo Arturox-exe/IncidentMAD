@@ -49,13 +49,15 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
                 imageView.setImageBitmap(MainActivity.imageWorks);
                 break;
             case "ACI":
+            case "ACM":
+            case "BKD":
                 imageView.setImageBitmap(MainActivity.imageAccident);
                 break;
             case "LCS":
                 imageView.setImageBitmap(MainActivity.imageClose);
                 break;
-            case "EXS":
-                imageView.setImageBitmap(MainActivity.imagePollution);
+            case "EVD":
+                imageView.setImageBitmap(MainActivity.imageDemonstration);
                 break;
             default:
                 imageView.setImageBitmap(MainActivity.imageAlert);

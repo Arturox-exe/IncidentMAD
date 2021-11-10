@@ -39,10 +39,9 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String URL_INCIDENTS = "https://informo.madrid.es/informo/tmadrid/incid_aytomadrid.xml";
 
-    //ImageButton btIncidents, btStatistics, btForum;
     Button btIncidents, btStatistics, btForum;
 
-    public static Bitmap imageAccident, imageClose, imagePollution, imageWorks, imageAlert;
+    public static Bitmap imageAccident, imageClose, imageDemonstration, imageWorks, imageAlert;
 
     public static final List<Incident> listOfIncidents = new ArrayList<>();
 
@@ -66,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
             imageAccident = BitmapFactory.decodeStream(is);
             is = getAssets().open("close.png");
             imageClose = BitmapFactory.decodeStream(is);
-            is = getAssets().open("pollution.png");
-            imagePollution = BitmapFactory.decodeStream(is);
+            is = getAssets().open("demonstration.png");
+            imageDemonstration = BitmapFactory.decodeStream(is);
             is = getAssets().open("works.png");
             imageWorks = BitmapFactory.decodeStream(is);
             is = getAssets().open("alert.png");

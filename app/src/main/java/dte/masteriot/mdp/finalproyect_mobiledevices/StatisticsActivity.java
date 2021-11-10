@@ -19,7 +19,7 @@ public class StatisticsActivity extends AppCompatActivity {
 
     private SevenSegmentView display1, display2, display3;
     private BarChart chart;
-    int works, closeStreet, accidents, pollution, unknown;
+    int works, closeStreet, accidents, demonstration, unknown;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,10 +49,12 @@ public class StatisticsActivity extends AppCompatActivity {
                     closeStreet++;
                     break;
                 case "ACI":
+                case "ACM":
+                case "BKD":
                     accidents++;
                     break;
-                case "EXS":
-                    pollution++;
+                case "EVD":
+                    demonstration++;
                     break;
                 default:
                     unknown++;
@@ -110,13 +112,13 @@ public class StatisticsActivity extends AppCompatActivity {
         values1.add(new BarEntry(1, works));
         values2.add(new BarEntry(2, accidents));
         values3.add(new BarEntry(3, closeStreet));
-        values4.add(new BarEntry(4, pollution));
+        values4.add(new BarEntry(4, demonstration));
         values5.add(new BarEntry(5, unknown));
 
         int colorWorks = Color.parseColor("#C17EC8");
         int colorAccident = Color.parseColor("#ED7D31");
         int colorCloseStreet = Color.parseColor("#85C1E9");
-        int colorPollution = Color.parseColor("#82E0AA");
+        int colorDemonstration = Color.parseColor("#82E0AA");
         int colorUnknown = Color.parseColor("#F7DC6F");
 
         BarDataSet set1, set2, set3, set4, set5;
@@ -126,8 +128,8 @@ public class StatisticsActivity extends AppCompatActivity {
         set2.setColor(colorAccident);
         set3 = new BarDataSet(values3, "Close Street");
         set3.setColor(colorCloseStreet);
-        set4 = new BarDataSet(values4, "Pollution");
-        set4.setColor(colorPollution);
+        set4 = new BarDataSet(values4, "Demonstration");
+        set4.setColor(colorDemonstration);
         set5 = new BarDataSet(values5, "Unknown");
         set5.setColor(colorUnknown);
 

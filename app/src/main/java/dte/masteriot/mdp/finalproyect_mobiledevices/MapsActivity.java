@@ -169,13 +169,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 image = "works-icon.png";
                 break;
             case "ACI":
+            case "ACM":
+            case "BKD":
                 image = "accident-icon.png";
                 break;
             case "LCS":
                 image = "close-icon.png";
                 break;
-            case "EXS":
-                image = "pollution-icon.png";
+            case "EVD":
+                image = "demonstration-icon.png";
                 break;
             default:
                 image = "alert-icon.png";
