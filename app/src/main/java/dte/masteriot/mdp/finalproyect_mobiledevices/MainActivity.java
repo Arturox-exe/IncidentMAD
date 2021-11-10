@@ -9,12 +9,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 import org.xmlpull.v1.XmlPullParser;
@@ -36,7 +39,9 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String URL_INCIDENTS = "https://informo.madrid.es/informo/tmadrid/incid_aytomadrid.xml";
 
-    Button btIncidents, btStatistics, btForum;
+    ImageButton btIncidents, btStatistics, btForum;
+    TextView tv_incidents, tv_statistics, tv_forum;
+
     public static Bitmap imageAccident, imageClose, imagePollution, imageWorks, imageAlert;
 
     public static final List<Incident> listOfIncidents = new ArrayList<>();
@@ -53,10 +58,19 @@ public class MainActivity extends AppCompatActivity {
         es.execute(loadURLContents);
 
 
-        btIncidents= (Button) findViewById(R.id.incidents_button);
-        btStatistics= (Button) findViewById(R.id.statistics_button);
-        btForum= (Button) findViewById(R.id.forum_button);
+        btIncidents = (ImageButton) findViewById(R.id.incidents_button);
+        btStatistics = (ImageButton) findViewById(R.id.statistics_button);
+        btForum = (ImageButton) findViewById(R.id.forum_button);
 
+        tv_incidents = findViewById(R.id.tv_incidents);
+        tv_incidents.bringToFront();
+        tv_incidents.setText("CURRENT INCIDENTS IN MADRID");
+        tv_statistics = findViewById(R.id.tv_statistics);
+        tv_statistics.bringToFront();
+        tv_statistics.setText("STATISTICS");
+        tv_forum = findViewById(R.id.tv_forum);
+        tv_forum.bringToFront();
+        tv_forum.setText("FORUM");
 
         try {
             InputStream is = getAssets().open("accident.png");
