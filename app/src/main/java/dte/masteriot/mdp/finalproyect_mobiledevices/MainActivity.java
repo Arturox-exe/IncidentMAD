@@ -39,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String URL_INCIDENTS = "https://informo.madrid.es/informo/tmadrid/incid_aytomadrid.xml";
 
-    ImageButton btIncidents, btStatistics, btForum;
-    TextView tv_incidents, tv_statistics, tv_forum;
+    //ImageButton btIncidents, btStatistics, btForum;
+    Button btIncidents, btStatistics, btForum;
 
     public static Bitmap imageAccident, imageClose, imagePollution, imageWorks, imageAlert;
 
@@ -57,20 +57,9 @@ public class MainActivity extends AppCompatActivity {
         LoadURLContents loadURLContents = new LoadURLContents(handler, URL_INCIDENTS);
         es.execute(loadURLContents);
 
-
-        btIncidents = (ImageButton) findViewById(R.id.incidents_button);
-        btStatistics = (ImageButton) findViewById(R.id.statistics_button);
-        btForum = (ImageButton) findViewById(R.id.forum_button);
-
-        tv_incidents = findViewById(R.id.tv_incidents);
-        tv_incidents.bringToFront();
-        tv_incidents.setText("CURRENT INCIDENTS IN MADRID");
-        tv_statistics = findViewById(R.id.tv_statistics);
-        tv_statistics.bringToFront();
-        tv_statistics.setText("STATISTICS");
-        tv_forum = findViewById(R.id.tv_forum);
-        tv_forum.bringToFront();
-        tv_forum.setText("FORUM");
+        btIncidents = findViewById(R.id.incidents_button);
+        btStatistics = findViewById(R.id.statistics_button);
+        btForum = findViewById(R.id.forum_button);
 
         try {
             InputStream is = getAssets().open("accident.png");

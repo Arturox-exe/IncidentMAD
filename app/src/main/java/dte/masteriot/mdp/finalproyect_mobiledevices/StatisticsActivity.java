@@ -113,11 +113,11 @@ public class StatisticsActivity extends AppCompatActivity {
         values4.add(new BarEntry(4, pollution));
         values5.add(new BarEntry(5, unknown));
 
-        int colorWorks = Color.parseColor("#FFBB86FC");
-        int colorAccident = Color.parseColor("#FF3700B3");
-        int colorCloseStreet = Color.parseColor("#FF03DAC5");
-        int colorPollution = Color.parseColor("#33FF60");
-        int colorUnknown = Color.RED;
+        int colorWorks = Color.parseColor("#C17EC8");
+        int colorAccident = Color.parseColor("#ED7D31");
+        int colorCloseStreet = Color.parseColor("#85C1E9");
+        int colorPollution = Color.parseColor("#82E0AA");
+        int colorUnknown = Color.parseColor("#F7DC6F");
 
         BarDataSet set1, set2, set3, set4, set5;
         set1 = new BarDataSet(values1, "Works");

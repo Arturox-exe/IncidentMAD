@@ -10,8 +10,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/Theme.FinalProyect_MobileDevices">
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -25,84 +24,53 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="150dp">
-
-        <TextView
-            android:id="@+id/tv_incidents"
-            android:layout_width="300dp"
-            android:layout_height="60dp"
-            android:layout_gravity="bottom|center"
-            android:gravity="center"
+        <Button
+            android:id="@+id/incidents_button"
+            android:layout_width="250dp"
+            android:layout_height="280dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="15dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/incidents"
+            android:gravity="bottom|center"
+            android:onClick="onIncidentsClick"
             android:text="Current Incidents in Madrid"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
-        <ImageButton
-            android:id="@+id/incidents_button"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:background="@drawable/incidents"
-            android:gravity="center"
-            android:onClick="onIncidentsClick"
-            android:text="Current Incidents in Madrid" />
-    </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="150dp">
-
-        <TextView
-            android:id="@+id/tv_statistics"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_gravity="bottom|center"
-            android:gravity="center"
+        <Button
+            android:id="@+id/statistics_button"
+            android:layout_width="250dp"
+            android:layout_height="280dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/statistics"
+            android:gravity="bottom|center"
+            android:onClick="onStatisticsClick"
             android:text="Statistics"
-            android:textColor="@color/black"
             android:textSize="20sp" />
 
-        <ImageButton
-            android:id="@+id/statistics_button"
-            android:layout_width="match_parent"
-            android:layout_height="240dp"
-            android:background="@drawable/statistics"
-            android:gravity="center"
-            android:onClick="onStatisticsClick"
-            android:text="Statistics" />
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="150dp">
-
-        <TextView
-            android:id="@+id/tv_forum"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_gravity="bottom|center"
-            android:gravity="center"
+        <Button
+            android:id="@+id/forum_button"
+            android:layout_width="250dp"
+            android:layout_height="280dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/forum"
+            android:gravity="bottom|center"
+            android:onClick="onForumClick"
             android:text="Forum"
             android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <ImageButton
-            android:id="@+id/forum_button"
-            android:layout_width="410dp"
-            android:layout_height="240dp"
-            android:background="@drawable/forum"
-            android:gravity="center"
-            android:backgroundTint="@color/purple_500"
-            android:textColor="@color/white"
-            android:onClick="onForumClick"
-            android:text="Forum" />
-    </FrameLayout>
+            android:textSize="18sp" />
 
 
 </LinearLayout>

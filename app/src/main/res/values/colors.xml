@@ -10,4 +10,14 @@
     <color name="colorPrimary">#9C27B0</color>
     <color name="colorPrimaryDark">#7B1FA2</color>
     <color name="colorAccent">#7C4DFF</color>
+    <color name="purple_bar1">#A84CB2</color>
+    <color name="purple_bar">#C17EC8</color>
+    <color name="purple_bar2">#8A3E92</color>
+    <color name="orange_st">#ED7D31</color>
+    <color name="blue_st">#85C1E9</color>
+    <color name="yellow_st">#F7DC6F</color>
+    <color name="green_st">#82E0AA</color>
+
+
+    #ED7D31
 </resources>
