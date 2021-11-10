@@ -65,7 +65,7 @@
             android:layout_weight="1"
             android:onClick="onPublishMessage"
             android:text="Send"
-            android:backgroundTint="@color/purple_500"
+            android:backgroundTint="@color/purple_bar2"
             android:textColor="@color/white"/>
     </LinearLayout>
 
