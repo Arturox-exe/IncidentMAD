@@ -78,8 +78,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 for (Location location : locationResult.getLocations()) {
                     position = new LatLng(location.getLatitude(), location.getLongitude());
                     currentPositionMarker = mMap.addMarker(new MarkerOptions().position(position).title("Current position"));
-                    getDistance();
                     if (type.equals("Individual")) {
+                        getDistance();
                         polyline = mMap.addPolyline(new PolylineOptions().add(position, coordinates));
                     }
                 }
@@ -185,26 +185,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void onCurrentPositionClicked (View v){
-        if(intent.getStringExtra("type").equals("Individual")) {
-            if (!position_b) {
-                getCurrentLocation();
-                position_b = true;
-                bPosition.setText("Disable Current Position");
-            } else {
-                polyline.remove();
-                currentPositionMarker.remove();
-                position_b = false;
-                bPosition.setText("Activate Current Position");
-            }
-        }
-        else if(intent.getStringExtra("type").equals("Multiple")){
-            if (!position_b) {
-                getCurrentLocation();
-                position_b = true;
-            } else {
-                currentPositionMarker.remove();
-                position_b = false;
-            }
+        if (!position_b) {
+            getCurrentLocation();
+            position_b = true;
+            bPosition.setText("Disable Current Position");
+        } else {
+            polyline.remove();
+            currentPositionMarker.remove();
+            position_b = false;
+            bPosition.setText("Activate Current Position");
         }
     }
 
