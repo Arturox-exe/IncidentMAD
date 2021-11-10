@@ -10,7 +10,6 @@
         android:id="@+id/position"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorPrimary"
         android:textColor="@color/white"
         android:text="Activate Current position"
         android:layout_gravity="center"
