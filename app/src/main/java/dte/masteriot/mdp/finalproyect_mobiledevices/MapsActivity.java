@@ -190,9 +190,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             position_b = true;
             bPosition.setText("Disable Current Position");
         } else {
-            polyline.remove();
+            if(intent.getStringExtra("type").equals("Individual")) {
+                polyline.remove();
+            }
             currentPositionMarker.remove();
             position_b = false;
+            tvDistance.setText("");
             bPosition.setText("Activate Current Position");
         }
     }
