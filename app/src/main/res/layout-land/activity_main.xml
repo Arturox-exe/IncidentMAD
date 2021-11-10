@@ -6,39 +6,79 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="150dp">
 
-        <Button
+        <TextView
+            android:id="@+id/tv_incidents"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom|center"
+            android:gravity="center"
+            android:text="Current Incidents in Madrid"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <ImageButton
             android:id="@+id/incidents_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="150dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:background="@drawable/incidents"
             android:gravity="center"
             android:onClick="onIncidentsClick"
             android:text="Current Incidents in Madrid" />
+    </FrameLayout>
 
-        <Button
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="150dp">
+
+        <TextView
+            android:id="@+id/tv_statistics"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom|center"
+            android:gravity="center"
+            android:text="Statistics"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <ImageButton
             android:id="@+id/statistics_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="150dp"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:background="@drawable/statistics"
             android:gravity="center"
             android:onClick="onStatisticsClick"
             android:text="Statistics" />
 
-        <Button
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="150dp">
+
+        <TextView
+            android:id="@+id/tv_forum"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom|center"
+            android:gravity="center"
+            android:text="Forum"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <ImageButton
             android:id="@+id/forum_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="410dp"
+            android:layout_height="240dp"
+            android:background="@drawable/forum"
             android:gravity="center"
             android:onClick="onForumClick"
             android:text="Forum" />
+    </FrameLayout>
 
-
-    </LinearLayout>
 
 </LinearLayout>
