@@ -19,23 +19,17 @@ import dte.masteriot.mdp.finalproyect_mobiledevices.R;
 
 public class IncidentsActivity extends AppCompatActivity implements MyViewHolder.ItemClickListener, SensorEventListener {
 
-    private RecyclerView recyclerView;
-    private MyAdapter recyclerViewAdapter;
-
-    private SensorManager sensorManager;
-    private Sensor lightSensor;
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_incidents);
 
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        Sensor lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         sensorManager.registerListener(IncidentsActivity.this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
 
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerViewAdapter = new MyAdapter( MainActivity.listOfIncidents, this);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        MyAdapter recyclerViewAdapter = new MyAdapter( MainActivity.listOfIncidents, this);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -60,7 +54,7 @@ public class IncidentsActivity extends AppCompatActivity implements MyViewHolder
     public void onSensorChanged(SensorEvent sensorEvent) {
         if (sensorEvent.sensor.getType() == Sensor.TYPE_LIGHT) {
             // Show the sensor's value in the UI:
-            if(10 > (sensorEvent.values[0])) {
+            if((sensorEvent.values[0]) < 25) {
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             }
             else{

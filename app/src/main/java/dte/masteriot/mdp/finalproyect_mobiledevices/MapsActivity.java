@@ -3,28 +3,22 @@ package dte.masteriot.mdp.finalproyect_mobiledevices;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import dte.masteriot.mdp.finalproyect_mobiledevices.incidents.Incident;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-
-import androidx.appcompat.app.AppCompatDelegate;
-
 import androidx.fragment.app.FragmentActivity;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-
 import android.content.pm.PackageManager;
 import android.location.Location;
-
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
@@ -32,7 +26,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationResult;
@@ -49,7 +42,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
-
 import java.util.List;
 import dte.masteriot.mdp.finalproyect_mobiledevices.databinding.ActivityMapsBinding;
 
@@ -57,7 +49,6 @@ import dte.masteriot.mdp.finalproyect_mobiledevices.databinding.ActivityMapsBind
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, SensorEventListener {
 
     private GoogleMap mMap;
-    private ActivityMapsBinding binding;
     private String image;
     private LocationRequest locationRequest;
     private FusedLocationProviderClient fusedLocationProviderClient;
@@ -69,19 +60,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private boolean init = true;
     private String type = "";
     public static LatLng position;
-    private float distance;
     TextView tvDistance;
     Button bPosition;
-    private SensorManager sensorManager;
-    private Sensor lightSensor;
 
     LocationCallback locationCallback = new LocationCallback() {
         @Override
-        public void onLocationResult(LocationResult locationResult) {
+        public void onLocationResult(@NonNull LocationResult locationResult) {
             super.onLocationResult(locationResult);
-            if(locationResult == null){
-                return;
-            }
             if(init){
                 for (Location location : locationResult.getLocations()) {
                     position = new LatLng(location.getLatitude(), location.getLongitude());
@@ -107,6 +92,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ActivityMapsBinding binding;
         super.onCreate(savedInstanceState);
 
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
@@ -116,13 +102,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         bPosition = (Button) findViewById(R.id.position);
         locationRequest = LocationRequest.create();
 
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        Sensor lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         sensorManager.registerListener(MapsActivity.this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
 
         if (ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
             requestPermissions(new String[]{ACCESS_FINE_LOCATION}, 1);
@@ -167,12 +155,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 String message = "<b>NAME:</b> " + incident.getName() + "<br><br><b>DESCRIPTION:</b> " + incident.getDescription()
                         +"<br><br><b>START DATE:</b> " + incident.getStartDate() + "<br><br><b>END DATE: </b>" + incident.getEndDate();
                 information.setMessage(Html.fromHtml(message,Html.FROM_HTML_MODE_LEGACY));
-                information.setCancelable(true).setNegativeButton("Exit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
+                information.setCancelable(true).setNegativeButton("Exit", (dialog, which) -> dialog.cancel());
                 AlertDialog info = information.create();
                 info.setTitle("Description of the incident");
                 info.show();
@@ -226,18 +209,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                                           int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case 1:
-                if (grantResults.length > 0 && grantResults[0] == PERMISSION_GRANTED) {
-                    Log.w("PERMISSION", "permission granted");
-                    getCurrentLocation();
-                } else {
-                    Log.w("PERMISSION", "permission NOT granted");
-                }
-            return;
+        if (requestCode ==1) {
+            if (grantResults.length > 0 && grantResults[0] == PERMISSION_GRANTED) {
+                Log.w("PERMISSION", "permission granted");
+                getCurrentLocation();
+            } else {
+                Log.w("PERMISSION", "permission NOT granted");
+            }
         }
     }
 
@@ -248,6 +229,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     void getDistance(){
+        float distance;
         Location locPosition = new Location ("Position");
         locPosition.setLatitude(position.latitude);
         locPosition.setLongitude(position.longitude);
@@ -265,7 +247,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onSensorChanged(SensorEvent sensorEvent) {
         if (sensorEvent.sensor.getType() == Sensor.TYPE_LIGHT) {
             // Show the sensor's value in the UI:
-            if(10 > (sensorEvent.values[0])) {
+            if((sensorEvent.values[0]) < 25) {
                 //getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             }
             else{

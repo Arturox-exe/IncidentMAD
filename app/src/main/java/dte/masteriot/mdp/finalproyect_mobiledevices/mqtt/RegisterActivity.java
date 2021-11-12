@@ -7,16 +7,12 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-
-import dte.masteriot.mdp.finalproyect_mobiledevices.MapsActivity;
 import dte.masteriot.mdp.finalproyect_mobiledevices.R;
 
 public class RegisterActivity extends AppCompatActivity implements SensorEventListener {
@@ -24,19 +20,14 @@ public class RegisterActivity extends AppCompatActivity implements SensorEventLi
     Button btRegister;
     EditText eRegister, ePassword, eRPassword;
     Boolean letter = false, digit = false;
-    private MyOpenHelper db;
-
-    private SensorManager sensorManager;
-    private Sensor lightSensor;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        Sensor lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         sensorManager.registerListener(RegisterActivity.this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
 
@@ -45,6 +36,8 @@ public class RegisterActivity extends AppCompatActivity implements SensorEventLi
     }
 
     public void onRegisterClick(View view){
+        MyOpenHelper db;
+
         db = new MyOpenHelper(this);
         eRegister = (EditText) findViewById(R.id.eRegisterUser);
         ePassword = (EditText) findViewById(R.id.ePasswordUser);
@@ -115,7 +108,7 @@ public class RegisterActivity extends AppCompatActivity implements SensorEventLi
     public void onSensorChanged(SensorEvent sensorEvent) {
         if (sensorEvent.sensor.getType() == Sensor.TYPE_LIGHT) {
             // Show the sensor's value in the UI:
-            if(10 > (sensorEvent.values[0])) {
+            if((sensorEvent.values[0]) < 25) {
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             }
             else{

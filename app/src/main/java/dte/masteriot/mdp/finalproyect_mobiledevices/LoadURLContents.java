@@ -12,7 +12,7 @@ public class LoadURLContents implements Runnable {
 
     public static InputStream is;
     public Handler creator;
-    private String string_URL;
+    final String string_URL;
 
     public LoadURLContents(Handler handler,  String strURL) {
         creator = handler;
@@ -37,7 +37,7 @@ public class LoadURLContents implements Runnable {
             response = e.toString();
         }
 
-        if ("".equals(response) == false) {
+        if (!"".equals(response)) {
             msg_data.putString("text", response);
         }
         msg.sendToTarget();

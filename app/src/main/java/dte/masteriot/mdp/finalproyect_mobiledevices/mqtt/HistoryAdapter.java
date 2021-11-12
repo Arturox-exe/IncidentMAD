@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -14,12 +15,13 @@ import dte.masteriot.mdp.finalproyect_mobiledevices.R;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
 
-    private ArrayList<String> history;
+    final ArrayList<String> history;
 
     public HistoryAdapter(ArrayList<String> dataSet) {
         history = dataSet;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 

@@ -8,13 +8,11 @@ import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
-
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -22,24 +20,20 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.material.snackbar.Snackbar;
-
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.DisconnectedBufferOptions;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
@@ -49,20 +43,15 @@ import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
-
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
-import dte.masteriot.mdp.finalproyect_mobiledevices.MapsActivity;
 import dte.masteriot.mdp.finalproyect_mobiledevices.R;
 
 public class MqttClient extends AppCompatActivity implements SensorEventListener {
     final String serverUri = "tcp://2.137.213.175";
     final String subscriptionTopic = "incidents/madrid";
     final String publishTopic = "incidents/madrid";
-    private String currentDateTimeString = "";
-    private String new_message = "";
     MqttAndroidClient mqttAndroidClient;
     String clientId = "Client1";
     private HistoryAdapter mAdapter;
@@ -70,8 +59,6 @@ public class MqttClient extends AppCompatActivity implements SensorEventListener
     private LocationRequest locationRequest;
     private FusedLocationProviderClient fusedLocationProviderClient;
     LatLng position;
-    private SensorManager sensorManager;
-    private Sensor lightSensor;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -80,8 +67,8 @@ public class MqttClient extends AppCompatActivity implements SensorEventListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scrolling);
 
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        Sensor lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         sensorManager.registerListener(MqttClient.this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
         locationRequest = LocationRequest.create();
@@ -145,7 +132,7 @@ public class MqttClient extends AppCompatActivity implements SensorEventListener
                 @Override
                 public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
                     addToHistory("Failed to connect to: " + serverUri +
-                            ". Cause: " + ((exception.getCause() == null)?
+                            ". Cause: " + ((exception.getCause() == null) ?
                             exception.toString() : exception.getCause()));
                 }
             });
@@ -174,21 +161,21 @@ public class MqttClient extends AppCompatActivity implements SensorEventListener
             mqttAndroidClient.subscribe(subscriptionTopic, 0, null, new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
-                    Toast Tsubscribe = Toast.makeText(getApplicationContext(),"Subscribed to: " + subscriptionTopic, Toast.LENGTH_SHORT);
+                    Toast Tsubscribe = Toast.makeText(getApplicationContext(), "Subscribed to: " + subscriptionTopic, Toast.LENGTH_SHORT);
                     Tsubscribe.show();
 
                 }
 
                 @Override
                 public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    Toast Tsubscribe = Toast.makeText(getApplicationContext(),"Failed to subscribe", Toast.LENGTH_SHORT);
+                    Toast Tsubscribe = Toast.makeText(getApplicationContext(), "Failed to subscribe", Toast.LENGTH_SHORT);
                     Tsubscribe.show();
 
                 }
             });
         } catch (MqttException e) {
             e.printStackTrace();
-            Toast Tsubscribe = Toast.makeText(getApplicationContext(),e.toString(), Toast.LENGTH_SHORT);
+            Toast Tsubscribe = Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT);
             Tsubscribe.show();
 
         }
@@ -197,21 +184,22 @@ public class MqttClient extends AppCompatActivity implements SensorEventListener
 
 
     public void onPublishMessage(View view) {
+        String currentDateTimeString;
         EditText eMessage = (EditText) findViewById(R.id.eMessage);
 
-        if(!eMessage.getText().toString().isEmpty()) {
+        if (!eMessage.getText().toString().isEmpty()) {
             currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
             MqttMessage message = new MqttMessage();
             Bundle savedInstanceState = null;
             if (savedInstanceState == null) {
                 Bundle extras = getIntent().getExtras();
-                if(extras == null) {
-                    user= null;
+                if (extras == null) {
+                    user = null;
                 } else {
-                    user= extras.getString("user");
+                    user = extras.getString("user");
                 }
             } else {
-                user= (String) savedInstanceState.getSerializable("user");
+                user = (String) savedInstanceState.getSerializable("user");
             }
 
             String string_position = position.toString();
@@ -231,10 +219,8 @@ public class MqttClient extends AppCompatActivity implements SensorEventListener
             if (!mqttAndroidClient.isConnected()) {
                 addToHistory("Client not connected!");
             }
-        }
-
-        else{
-            Toast Tmessage = Toast.makeText(getApplicationContext(),"Your message can't be empty", Toast.LENGTH_SHORT);
+        } else {
+            Toast Tmessage = Toast.makeText(getApplicationContext(), "Your message can't be empty", Toast.LENGTH_SHORT);
             Tmessage.show();
         }
 
@@ -242,11 +228,8 @@ public class MqttClient extends AppCompatActivity implements SensorEventListener
 
     LocationCallback locationCallback = new LocationCallback() {
         @Override
-        public void onLocationResult(LocationResult locationResult) {
+        public void onLocationResult(@NonNull LocationResult locationResult) {
             super.onLocationResult(locationResult);
-            if(locationResult == null){
-                return;
-            }
             for (Location location : locationResult.getLocations()) {
                 position = new LatLng(location.getLatitude(), location.getLongitude());
             }
@@ -254,24 +237,22 @@ public class MqttClient extends AppCompatActivity implements SensorEventListener
         }
     };
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                                           int[] grantResults) {
+
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case 1:
-                if (grantResults.length > 0 && grantResults[0] == PERMISSION_GRANTED) {
-                    Log.w("PERMISSION", "permission granted");
-                    getCurrentLocation();
-                } else {
-                    Log.w("PERMISSION", "permission NOT granted");
-                }
-                return;
+        if (requestCode==1) {
+            if (grantResults.length > 0 && grantResults[0] == PERMISSION_GRANTED) {
+                Log.w("PERMISSION", "permission granted");
+                getCurrentLocation();
+            } else {
+                Log.w("PERMISSION", "permission NOT granted");
+            }
         }
     }
 
     @SuppressLint("MissingPermission")
-    public void getCurrentLocation(){
+    public void getCurrentLocation() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, getMainLooper());
     }
@@ -279,14 +260,15 @@ public class MqttClient extends AppCompatActivity implements SensorEventListener
     public void onSensorChanged(SensorEvent sensorEvent) {
         if (sensorEvent.sensor.getType() == Sensor.TYPE_LIGHT) {
             // Show the sensor's value in the UI:
-            if(10 > (sensorEvent.values[0])) {
+            if ((sensorEvent.values[0]) < 25) {
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            }
-            else{
+            } else {
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             }
         }
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {}
+    public void onAccuracyChanged(Sensor sensor, int i) {
+    }
+}

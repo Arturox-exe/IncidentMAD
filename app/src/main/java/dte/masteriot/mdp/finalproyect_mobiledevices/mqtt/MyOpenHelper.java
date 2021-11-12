@@ -11,7 +11,7 @@ public class MyOpenHelper extends SQLiteOpenHelper {
     private static final String USERS_TABLE_CREATE = "CREATE TABLE users(_id INTEGER PRIMARY KEY AUTOINCREMENT, user TEXT, password TEXT)";
     private static final String DB_NAME = "users.sqlite";
     private static final int DB_VERSION = 1;
-    private SQLiteDatabase db = getReadableDatabase();
+    final SQLiteDatabase db;
 
 
 
@@ -33,7 +33,7 @@ public class MyOpenHelper extends SQLiteOpenHelper {
     //Insertar un nuevo comentario
     public Boolean insertar(String nombre,String password){
         User usr = query(nombre);
-        Boolean message;
+        boolean message;
 
         if(usr == null) {
             ContentValues cv = new ContentValues();
@@ -46,12 +46,6 @@ public class MyOpenHelper extends SQLiteOpenHelper {
             message = false;
         }
         return message;
-    }
-
-    //Borrar un comentario a partir de su id
-    public void delete(int id){
-        String[] args = new String[]{String.valueOf(id)};
-        db.delete("users", "_id=?", args);
     }
 
     public User query(String nombre){
@@ -69,8 +63,9 @@ public class MyOpenHelper extends SQLiteOpenHelper {
 
         }
 
-
-        c.close();
+        if (c != null) {
+            c.close();
+        }
         return usr;
     }
 

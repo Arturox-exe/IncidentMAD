@@ -3,6 +3,8 @@ package dte.masteriot.mdp.finalproyect_mobiledevices.incidents;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
@@ -10,7 +12,7 @@ import dte.masteriot.mdp.finalproyect_mobiledevices.R;
 
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
 
-    private List<Incident> incidents;
+    final List<Incident> incidents;
 
     private final MyViewHolder.ItemClickListener myClickListener;
 
@@ -20,6 +22,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
         this.myClickListener = clickListener;
     }
 
+    @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.incident_card, parent, false);

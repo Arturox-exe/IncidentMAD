@@ -10,7 +10,6 @@ import android.os.Bundle;
 import dte.masteriot.mdp.finalproyect_mobiledevices.incidents.Incident;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-
 import com.bendaschel.sevensegmentview.SevenSegmentView;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -18,7 +17,6 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,23 +25,23 @@ public class StatisticsActivity extends AppCompatActivity implements SensorEvent
     private SevenSegmentView display1, display2, display3;
     private BarChart chart;
     int works, closeStreet, accidents, demonstration, unknown;
-
-    private SensorManager sensorManager;
-    private Sensor lightSensor;
+    private List<Incident> listOfIncidents;
 
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
 
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        Sensor lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         sensorManager.registerListener(StatisticsActivity.this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
-
 
         display1 = findViewById(R.id.display1);
         display2 = findViewById(R.id.display2);
         display3 = findViewById(R.id.display3);
 
+        init_Data();
+        listOfIncidents = MainActivity.listOfIncidents;
         numberOfIncidents();
         typeOfIncident();
 
@@ -52,7 +50,6 @@ public class StatisticsActivity extends AppCompatActivity implements SensorEvent
     }
 
     public void typeOfIncident(){
-        List<Incident> listOfIncidents= MainActivity.listOfIncidents;
         for (int i = 0 ; i < listOfIncidents.size() ; i++){
             switch (listOfIncidents.get(i).getType() ){
                 case "RMK":
@@ -91,7 +88,7 @@ public class StatisticsActivity extends AppCompatActivity implements SensorEvent
     }
 
     public void numberOfIncidents(){
-        int n_incidents = MainActivity.listOfIncidents.size();
+        int n_incidents = listOfIncidents.size();
         representationDisplay(n_incidents);
     }
 
@@ -115,7 +112,7 @@ public class StatisticsActivity extends AppCompatActivity implements SensorEvent
         leftAxis.setDrawGridLines(false);
         leftAxis.setSpaceTop(20f);
         leftAxis.setAxisMinimum(0f);
-        leftAxis.setDrawAxisLine(false);;
+        leftAxis.setDrawAxisLine(false);
         chart.getAxisRight().setEnabled(false);
 
         ArrayList<BarEntry> values1 = new ArrayList<>();
@@ -157,10 +154,12 @@ public class StatisticsActivity extends AppCompatActivity implements SensorEvent
     public void onSensorChanged(SensorEvent sensorEvent) {
         if (sensorEvent.sensor.getType() == Sensor.TYPE_LIGHT) {
             // Show the sensor's value in the UI:
-            if(10 > (sensorEvent.values[0])) {
+            if((sensorEvent.values[0]) < 25) {
+                init_Data();
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             }
             else{
+                init_Data();
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             }
         }
@@ -169,5 +168,14 @@ public class StatisticsActivity extends AppCompatActivity implements SensorEvent
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
 
+    }
+
+    public void init_Data (){
+        listOfIncidents = null;
+        works = 0;
+        closeStreet = 0;
+        accidents = 0;
+        demonstration = 0;
+        unknown = 0;
     }
 }
