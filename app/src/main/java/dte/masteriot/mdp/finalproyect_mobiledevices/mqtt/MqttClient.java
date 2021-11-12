@@ -8,6 +8,13 @@ import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
+
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -17,6 +24,7 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -49,7 +57,7 @@ import java.util.Date;
 import dte.masteriot.mdp.finalproyect_mobiledevices.MapsActivity;
 import dte.masteriot.mdp.finalproyect_mobiledevices.R;
 
-public class MqttClient extends AppCompatActivity {
+public class MqttClient extends AppCompatActivity implements SensorEventListener {
     final String serverUri = "tcp://2.137.213.175";
     final String subscriptionTopic = "incidents/madrid";
     final String publishTopic = "incidents/madrid";
@@ -62,14 +70,19 @@ public class MqttClient extends AppCompatActivity {
     private LocationRequest locationRequest;
     private FusedLocationProviderClient fusedLocationProviderClient;
     LatLng position;
+    private SensorManager sensorManager;
+    private Sensor lightSensor;
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scrolling);
-        //Toolbar toolbar = findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        sensorManager.registerListener(MqttClient.this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
         locationRequest = LocationRequest.create();
         RecyclerView mRecyclerView = findViewById(R.id.history_recycler_view);
@@ -262,4 +275,18 @@ public class MqttClient extends AppCompatActivity {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, getMainLooper());
     }
-}
+
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        if (sensorEvent.sensor.getType() == Sensor.TYPE_LIGHT) {
+            // Show the sensor's value in the UI:
+            if(10 > (sensorEvent.values[0])) {
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            }
+            else{
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {}

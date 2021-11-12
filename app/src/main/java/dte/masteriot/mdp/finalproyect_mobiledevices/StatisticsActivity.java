@@ -1,9 +1,16 @@
 package dte.masteriot.mdp.finalproyect_mobiledevices;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import dte.masteriot.mdp.finalproyect_mobiledevices.incidents.Incident;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+
 import com.bendaschel.sevensegmentview.SevenSegmentView;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -15,15 +22,23 @@ import com.github.mikephil.charting.data.BarEntry;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StatisticsActivity extends AppCompatActivity {
+public class StatisticsActivity extends AppCompatActivity implements SensorEventListener {
 
     private SevenSegmentView display1, display2, display3;
     private BarChart chart;
     int works, closeStreet, accidents, demonstration, unknown;
 
+    private SensorManager sensorManager;
+    private Sensor lightSensor;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
+
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        sensorManager.registerListener(StatisticsActivity.this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
+
 
         display1 = findViewById(R.id.display1);
         display2 = findViewById(R.id.display2);
@@ -136,5 +151,23 @@ public class StatisticsActivity extends AppCompatActivity {
         BarData data = new BarData(set1, set2, set3, set4, set5);
         data.setBarWidth(0.9f);
         chart.setData(data);
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        if (sensorEvent.sensor.getType() == Sensor.TYPE_LIGHT) {
+            // Show the sensor's value in the UI:
+            if(10 > (sensorEvent.values[0])) {
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            }
+            else{
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+
     }
 }

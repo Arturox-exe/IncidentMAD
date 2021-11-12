@@ -1,6 +1,11 @@
 package dte.masteriot.mdp.finalproyect_mobiledevices.mqtt;
 
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,21 +14,31 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
+import dte.masteriot.mdp.finalproyect_mobiledevices.MapsActivity;
 import dte.masteriot.mdp.finalproyect_mobiledevices.R;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity implements SensorEventListener {
 
     Button btRegister;
     EditText eRegister, ePassword, eRPassword;
     Boolean letter = false, digit = false;
     private MyOpenHelper db;
 
+    private SensorManager sensorManager;
+    private Sensor lightSensor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        sensorManager.registerListener(RegisterActivity.this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
+
 
         btRegister = (Button) findViewById(R.id.register_button);
 
@@ -95,5 +110,22 @@ public class RegisterActivity extends AppCompatActivity {
         }
         digit = false;
         letter = false;
+    }
+
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        if (sensorEvent.sensor.getType() == Sensor.TYPE_LIGHT) {
+            // Show the sensor's value in the UI:
+            if(10 > (sensorEvent.values[0])) {
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            }
+            else{
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+
     }
 }

@@ -4,15 +4,27 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import dte.masteriot.mdp.finalproyect_mobiledevices.incidents.Incident;
 import androidx.annotation.RequiresApi;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+
+import androidx.appcompat.app.AppCompatDelegate;
+
 import androidx.fragment.app.FragmentActivity;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+
 import android.content.pm.PackageManager;
 import android.location.Location;
+
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
@@ -41,7 +53,8 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import java.util.List;
 import dte.masteriot.mdp.finalproyect_mobiledevices.databinding.ActivityMapsBinding;
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
+
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, SensorEventListener {
 
     private GoogleMap mMap;
     private ActivityMapsBinding binding;
@@ -59,6 +72,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private float distance;
     TextView tvDistance;
     Button bPosition;
+    private SensorManager sensorManager;
+    private Sensor lightSensor;
 
     LocationCallback locationCallback = new LocationCallback() {
         @Override
@@ -88,6 +103,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     };
 
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +115,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         tvDistance = (TextView) findViewById(R.id.distanceId);
         bPosition = (Button) findViewById(R.id.position);
         locationRequest = LocationRequest.create();
+
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        sensorManager.registerListener(MapsActivity.this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -185,6 +205,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void onCurrentPositionClicked (View v){
         if (!position_b) {
@@ -201,6 +222,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             bPosition.setText("Activate Current Position");
         }
     }
+
+    
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions,
@@ -235,5 +258,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         String distance_string = String.format("%.2f", distance);
         tvDistance.setText("Distance to the incident: " + distance_string + " Km");
     }
+
+
+    public void onAccuracyChanged(Sensor sensor, int i) {}
+
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        if (sensorEvent.sensor.getType() == Sensor.TYPE_LIGHT) {
+            // Show the sensor's value in the UI:
+            if(10 > (sensorEvent.values[0])) {
+                //getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            }
+            else{
+                //getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+
+        }
+    }
+
 
 }
