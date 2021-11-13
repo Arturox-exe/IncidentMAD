@@ -1,8 +1,8 @@
-package dte.masteriot.mdp.finalproyect_mobiledevices;
+package dte.masteriot.mdp.IncidentMAD;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
-import dte.masteriot.mdp.finalproyect_mobiledevices.incidents.Incident;
+import dte.masteriot.mdp.IncidentMAD.incidents.Incident;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -11,7 +11,6 @@ import androidx.fragment.app.FragmentActivity;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -43,7 +42,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import java.util.List;
-import dte.masteriot.mdp.finalproyect_mobiledevices.databinding.ActivityMapsBinding;
+import dte.masteriot.mdp.IncidentMAD.databinding.ActivityMapsBinding;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, SensorEventListener {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="dte.masteriot.mdp.finalproyect_mobiledevices">
+    package="dte.masteriot.mdp.IncidentMAD">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -24,12 +24,12 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name="dte.masteriot.mdp.IncidentMAD.MapsActivity"
             android:exported="false"
             android:label="@string/title_activity_maps"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".MainActivity"
+            android:name="dte.masteriot.mdp.IncidentMAD.MainActivity"
             android:exported="true"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -39,11 +39,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".incidents.IncidentsActivity" android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".StatisticsActivity" android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name="dte.masteriot.mdp.finalproyect_mobiledevices.mqtt.LoginActivity" android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name="dte.masteriot.mdp.finalproyect_mobiledevices.mqtt.RegisterActivity" android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="dte.masteriot.mdp.finalproyect_mobiledevices.mqtt.MqttClient" android:theme="@style/AppTheme.NoActionBar" android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name="dte.masteriot.mdp.IncidentMAD.incidents.IncidentsActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name="dte.masteriot.mdp.IncidentMAD.StatisticsActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name="dte.masteriot.mdp.IncidentMAD.mqtt.LoginActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name="dte.masteriot.mdp.IncidentMAD.mqtt.RegisterActivity" android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="dte.masteriot.mdp.IncidentMAD.mqtt.MqttClient" android:theme="@style/AppTheme.NoActionBar" android:configChanges="keyboardHidden|orientation|screenSize"/>
 
         <service android:name="org.eclipse.paho.android.service.MqttService"/>
 

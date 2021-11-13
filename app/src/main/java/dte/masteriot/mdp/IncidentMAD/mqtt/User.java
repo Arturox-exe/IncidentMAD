@@ -1,4 +1,4 @@
-package dte.masteriot.mdp.finalproyect_mobiledevices.mqtt;
+package dte.masteriot.mdp.IncidentMAD.mqtt;
 
 import androidx.annotation.NonNull;
 

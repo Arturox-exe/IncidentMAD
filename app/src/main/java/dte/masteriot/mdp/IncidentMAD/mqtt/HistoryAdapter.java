@@ -1,4 +1,4 @@
-package dte.masteriot.mdp.finalproyect_mobiledevices.mqtt;
+package dte.masteriot.mdp.IncidentMAD.mqtt;
 
 
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import dte.masteriot.mdp.finalproyect_mobiledevices.R;
+import dte.masteriot.mdp.IncidentMAD.R;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
 

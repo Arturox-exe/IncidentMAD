@@ -1,4 +1,4 @@
-package dte.masteriot.mdp.finalproyect_mobiledevices.incidents;
+package dte.masteriot.mdp.IncidentMAD.incidents;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
-import dte.masteriot.mdp.finalproyect_mobiledevices.R;
+import dte.masteriot.mdp.IncidentMAD.R;
 
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
 

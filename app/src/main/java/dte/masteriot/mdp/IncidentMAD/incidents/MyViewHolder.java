@@ -1,12 +1,12 @@
-package dte.masteriot.mdp.finalproyect_mobiledevices.incidents;
+package dte.masteriot.mdp.IncidentMAD.incidents;
 
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import dte.masteriot.mdp.finalproyect_mobiledevices.MainActivity;
-import dte.masteriot.mdp.finalproyect_mobiledevices.R;
+import dte.masteriot.mdp.IncidentMAD.MainActivity;
+import dte.masteriot.mdp.IncidentMAD.R;
 
 public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 

@@ -1,4 +1,4 @@
-package dte.masteriot.mdp.finalproyect_mobiledevices.mqtt;
+package dte.masteriot.mdp.IncidentMAD.mqtt;
 
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -46,7 +46,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import dte.masteriot.mdp.finalproyect_mobiledevices.R;
+import dte.masteriot.mdp.IncidentMAD.R;
 
 public class MqttClient extends AppCompatActivity implements SensorEventListener {
     final String serverUri = "tcp://2.137.213.175";

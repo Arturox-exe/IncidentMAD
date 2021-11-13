@@ -1,4 +1,4 @@
-package dte.masteriot.mdp.finalproyect_mobiledevices;
+package dte.masteriot.mdp.IncidentMAD;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -7,7 +7,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import dte.masteriot.mdp.finalproyect_mobiledevices.incidents.Incident;
+import dte.masteriot.mdp.IncidentMAD.incidents.Incident;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import com.bendaschel.sevensegmentview.SevenSegmentView;

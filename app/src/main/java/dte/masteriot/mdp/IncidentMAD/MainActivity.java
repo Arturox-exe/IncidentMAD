@@ -1,6 +1,6 @@
-package dte.masteriot.mdp.finalproyect_mobiledevices;
+package dte.masteriot.mdp.IncidentMAD;
 
-import dte.masteriot.mdp.finalproyect_mobiledevices.incidents.Incident;
+import dte.masteriot.mdp.IncidentMAD.incidents.Incident;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -28,8 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import dte.masteriot.mdp.finalproyect_mobiledevices.incidents.IncidentsActivity;
-import dte.masteriot.mdp.finalproyect_mobiledevices.mqtt.LoginActivity;
+import dte.masteriot.mdp.IncidentMAD.incidents.IncidentsActivity;
+import dte.masteriot.mdp.IncidentMAD.mqtt.LoginActivity;
 
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {

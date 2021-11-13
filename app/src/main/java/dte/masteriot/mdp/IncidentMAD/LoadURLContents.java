@@ -1,4 +1,4 @@
-package dte.masteriot.mdp.finalproyect_mobiledevices;
+package dte.masteriot.mdp.IncidentMAD;
 
 import android.os.Bundle;
 import android.os.Handler;

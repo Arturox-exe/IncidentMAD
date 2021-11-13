@@ -1,4 +1,4 @@
-package dte.masteriot.mdp.finalproyect_mobiledevices.incidents;
+package dte.masteriot.mdp.IncidentMAD.incidents;
 
 import com.google.android.gms.maps.model.LatLng;
 

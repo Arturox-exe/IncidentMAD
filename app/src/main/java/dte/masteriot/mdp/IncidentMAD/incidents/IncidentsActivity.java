@@ -1,4 +1,4 @@
-package dte.masteriot.mdp.finalproyect_mobiledevices.incidents;
+package dte.masteriot.mdp.IncidentMAD.incidents;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,9 +13,9 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import dte.masteriot.mdp.finalproyect_mobiledevices.MainActivity;
-import dte.masteriot.mdp.finalproyect_mobiledevices.MapsActivity;
-import dte.masteriot.mdp.finalproyect_mobiledevices.R;
+import dte.masteriot.mdp.IncidentMAD.MainActivity;
+import dte.masteriot.mdp.IncidentMAD.MapsActivity;
+import dte.masteriot.mdp.IncidentMAD.R;
 
 public class IncidentsActivity extends AppCompatActivity implements MyViewHolder.ItemClickListener, SensorEventListener {
 

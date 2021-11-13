@@ -1,4 +1,4 @@
-package dte.masteriot.mdp.finalproyect_mobiledevices.mqtt;
+package dte.masteriot.mdp.IncidentMAD.mqtt;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,7 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
-import dte.masteriot.mdp.finalproyect_mobiledevices.R;
+import dte.masteriot.mdp.IncidentMAD.R;
 
 public class LoginActivity extends AppCompatActivity implements SensorEventListener {
 
