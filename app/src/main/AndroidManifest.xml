@@ -28,15 +28,20 @@
             android:exported="false"
             android:label="@string/title_activity_maps"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity
-            android:name="dte.masteriot.mdp.IncidentMAD.MainActivity"
+
+        <activity android:name=".InitScreen"
             android:exported="true"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+
+        <activity
+            android:name="dte.masteriot.mdp.IncidentMAD.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
         <activity android:name="dte.masteriot.mdp.IncidentMAD.incidents.IncidentsActivity" android:theme="@style/AppTheme.NoActionBar"/>
