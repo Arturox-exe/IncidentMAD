@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -144,6 +145,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             // Show the sensor's value in the UI:
             if((sensorEvent.values[0]) < 25) {
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                btStatistics.setTextColor(Color.BLACK);
             }
             else{
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
