@@ -6,6 +6,7 @@ import dte.masteriot.mdp.IncidentMAD.incidents.Incident;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import android.annotation.SuppressLint;
@@ -37,6 +38,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
@@ -45,7 +47,7 @@ import java.util.List;
 import dte.masteriot.mdp.IncidentMAD.databinding.ActivityMapsBinding;
 
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, SensorEventListener {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, SensorEventListener{
 
     private GoogleMap mMap;
     private String image;
@@ -61,10 +63,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public static LatLng position;
     TextView tvDistance;
     Button bPosition;
+    ActivityMapsBinding binding;
 
     LocationCallback locationCallback = new LocationCallback() {
         @Override
-        public void onLocationResult(@NonNull LocationResult locationResult) {
+        public void onLocationResult(LocationResult locationResult) {
             super.onLocationResult(locationResult);
             if(init){
                 for (Location location : locationResult.getLocations()) {
@@ -91,7 +94,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ActivityMapsBinding binding;
         super.onCreate(savedInstanceState);
 
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
@@ -107,9 +109,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        if (mapFragment != null) {
             mapFragment.getMapAsync(this);
-        }
+
 
         if (ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
             requestPermissions(new String[]{ACCESS_FINE_LOCATION}, 1);
@@ -208,8 +209,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                            int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode ==1) {
             if (grantResults.length > 0 && grantResults[0] == PERMISSION_GRANTED) {
@@ -248,6 +249,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // Show the sensor's value in the UI:
             if((sensorEvent.values[0]) < 25) {
                 //getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.mapstyle_night));
             }
             else{
                 //getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
