@@ -190,7 +190,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 image = "demonstration-icon.png";
                 break;
             default:
-                image = "alert-icon.png";
+                image = "alert_orange_icon.png";
                 break;
         }
     }

@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             imageDemonstration = BitmapFactory.decodeStream(is);
             is = getAssets().open("works.png");
             imageWorks = BitmapFactory.decodeStream(is);
-            is = getAssets().open("alert.png");
+            is = getAssets().open("alert_orange.png");
             imageAlert = BitmapFactory.decodeStream(is);
         } catch (IOException e) {
             e.printStackTrace();
