@@ -36,11 +36,11 @@
             android:layout_marginRight="5dp"
             android:layout_marginBottom="15dp"
             android:adjustViewBounds="true"
-            android:background="@drawable/incidents"
+            android:background="@drawable/incidents_light"
             android:gravity="bottom|center"
             android:onClick="onIncidentsClick"
             android:text="Current Incidents in Madrid"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20sp" />
 
         <Button
@@ -51,7 +51,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginRight="5dp"
             android:layout_marginBottom="15dp"
-            android:background="@drawable/statistics"
+            android:background="@drawable/statistics_light"
             android:gravity="bottom|center"
             android:onClick="onStatisticsClick"
             android:text="Statistics"
@@ -65,11 +65,11 @@
             android:layout_marginTop="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="15dp"
-            android:background="@drawable/forum"
+            android:background="@drawable/forum_light"
             android:gravity="bottom|center"
             android:onClick="onForumClick"
             android:text="Forum"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="18sp" />
 
 

@@ -7,6 +7,8 @@ import dte.masteriot.mdp.IncidentMAD.incidents.Incident;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import android.annotation.SuppressLint;
@@ -14,6 +16,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -22,9 +25,11 @@ import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -64,6 +69,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     TextView tvDistance;
     Button bPosition;
     ActivityMapsBinding binding;
+    LinearLayout mapsLayout;
 
     LocationCallback locationCallback = new LocationCallback() {
         @Override
@@ -101,6 +107,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         tvDistance = (TextView) findViewById(R.id.distanceId);
         bPosition = (Button) findViewById(R.id.position);
+        mapsLayout = findViewById(R.id.mapsLayout);
         locationRequest = LocationRequest.create();
 
         SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -242,13 +249,16 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 
-    public void onAccuracyChanged(Sensor sensor, int i) {}
+    public void onAccuracyChanged(Sensor sensor, int i) {
+
+    }
 
     public void onSensorChanged(SensorEvent sensorEvent) {
         if (sensorEvent.sensor.getType() == Sensor.TYPE_LIGHT) {
             // Show the sensor's value in the UI:
             if((sensorEvent.values[0]) < 25) {
                 //getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                mapsLayout.setBackgroundColor(Color.parseColor("#303030"));
                 mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.mapstyle_night));
             }
             else{

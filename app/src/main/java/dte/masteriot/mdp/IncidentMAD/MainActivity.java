@@ -145,7 +145,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             // Show the sensor's value in the UI:
             if((sensorEvent.values[0]) < 25) {
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                btStatistics.setTextColor(Color.BLACK);
+                //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                btIncidents.setBackground(getResources().getDrawable(R.drawable.incidents));
+                btIncidents.setTextColor(Color.WHITE);
+                btForum.setBackground(getResources().getDrawable(R.drawable.forum));
+                btForum.setTextColor(Color.WHITE);
+                btStatistics.setBackground(getResources().getDrawable(R.drawable.statistics));
+                btStatistics.setTextColor(Color.WHITE);
             }
             else{
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
