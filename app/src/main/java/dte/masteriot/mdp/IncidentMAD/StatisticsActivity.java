@@ -157,6 +157,9 @@ public class StatisticsActivity extends AppCompatActivity implements SensorEvent
             if((sensorEvent.values[0]) < 25) {
                 init_Data();
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                chart.getLegend().setTextColor(Color.WHITE);
+                chart.getAxisLeft().setTextColor(Color.WHITE);
             }
             else{
                 init_Data();

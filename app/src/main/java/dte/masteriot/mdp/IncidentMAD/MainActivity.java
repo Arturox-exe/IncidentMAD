@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -63,11 +64,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             imageAccident = BitmapFactory.decodeStream(is);
             is = getAssets().open("close.png");
             imageClose = BitmapFactory.decodeStream(is);
-            is = getAssets().open("demonstration.png");
+            is = getAssets().open("demonstration_green.png");
             imageDemonstration = BitmapFactory.decodeStream(is);
             is = getAssets().open("works.png");
             imageWorks = BitmapFactory.decodeStream(is);
-            is = getAssets().open("alert.png");
+            is = getAssets().open("alert_orange.png");
             imageAlert = BitmapFactory.decodeStream(is);
         } catch (IOException e) {
             e.printStackTrace();
@@ -130,12 +131,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 eventType = parser.next();
             }
         } catch (Exception e) {
-            AlertDialog.Builder connection = new AlertDialog.Builder(MainActivity.this);
+           /* AlertDialog.Builder connection = new AlertDialog.Builder(MainActivity.this);
             connection.setMessage("The application needs Internet connection.\nTry again later.");
             connection.setCancelable(false).setNegativeButton("Close app", (dialog, which) -> finish()).setNeutralButton("Discard",(dialog, which) -> dialog.cancel());
             AlertDialog info = connection.create();
             info.setTitle("CONNECTION FAILED");
-            info.show();
+            info.show();*/
         }
     }
 
@@ -144,6 +145,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             // Show the sensor's value in the UI:
             if((sensorEvent.values[0]) < 25) {
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                btIncidents.setBackground(getResources().getDrawable(R.drawable.incidents));
+                btIncidents.setTextColor(Color.WHITE);
+                btForum.setBackground(getResources().getDrawable(R.drawable.forum));
+                btForum.setTextColor(Color.WHITE);
+                btStatistics.setBackground(getResources().getDrawable(R.drawable.statistics));
+                btStatistics.setTextColor(Color.WHITE);
             }
             else{
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);

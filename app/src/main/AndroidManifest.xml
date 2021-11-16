@@ -48,7 +48,7 @@
         <activity android:name="dte.masteriot.mdp.IncidentMAD.StatisticsActivity" android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name="dte.masteriot.mdp.IncidentMAD.mqtt.LoginActivity" android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name="dte.masteriot.mdp.IncidentMAD.mqtt.RegisterActivity" android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="dte.masteriot.mdp.IncidentMAD.mqtt.MqttClient" android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="dte.masteriot.mdp.IncidentMAD.mqtt.MqttClient" android:theme="@style/AppTheme.NoActionBar" android:configChanges="keyboardHidden|orientation|screenSize" />
 
         <service android:name="org.eclipse.paho.android.service.MqttService"/>
 
