@@ -176,6 +176,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             case "RMK":
             case "RWK":
             case "RWL":
+            case "RWR":
                 image = "works-icon.png";
                 break;
             case "ACI":
@@ -187,8 +188,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 image = "close-icon.png";
                 break;
             case "EVD":
-                image = "demonstration-green-" +
-                        "icon.png";
+                image = "demonstration-green-icon.png";
                 break;
             default:
                 image = "alert_orange_icon.png";

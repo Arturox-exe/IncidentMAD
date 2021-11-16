@@ -208,7 +208,7 @@ public class MqttClient extends AppCompatActivity implements SensorEventListener
             }
 
             String string_position = position.toString();
-            String publish = currentDateTimeString + " [" + string_position + "]" + "\n" + "   " + user + ":   " + eMessage.getText().toString();
+            String publish = currentDateTimeString + " \n[" + string_position + "]" + "\n" + "   " + user + ":   " + eMessage.getText().toString();
             eMessage.setText("");
             message.setPayload(publish.getBytes());
             message.setRetained(false);

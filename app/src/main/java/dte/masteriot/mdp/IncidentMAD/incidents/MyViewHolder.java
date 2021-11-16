@@ -46,6 +46,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
             case "RMK":
             case "RWK":
             case "RWL":
+            case "RWR":
                 imageView.setImageBitmap(MainActivity.imageWorks);
                 break;
             case "ACI":

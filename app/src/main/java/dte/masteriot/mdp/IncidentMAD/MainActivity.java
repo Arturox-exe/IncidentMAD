@@ -131,12 +131,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 eventType = parser.next();
             }
         } catch (Exception e) {
-           /* AlertDialog.Builder connection = new AlertDialog.Builder(MainActivity.this);
+           AlertDialog.Builder connection = new AlertDialog.Builder(MainActivity.this);
             connection.setMessage("The application needs Internet connection.\nTry again later.");
             connection.setCancelable(false).setNegativeButton("Close app", (dialog, which) -> finish()).setNeutralButton("Discard",(dialog, which) -> dialog.cancel());
             AlertDialog info = connection.create();
             info.setTitle("CONNECTION FAILED");
-            info.show();*/
+            info.show();
         }
     }
 
