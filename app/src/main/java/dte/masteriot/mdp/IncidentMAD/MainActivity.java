@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         } catch (Exception e) {
             AlertDialog.Builder connection = new AlertDialog.Builder(MainActivity.this);
             connection.setMessage("The application needs Internet connection.\nTry again later.");
-            connection.setCancelable(false).setNegativeButton("Close app", (dialog, which) -> finish());
+            connection.setCancelable(false).setNegativeButton("Close app", (dialog, which) -> finish()).setNeutralButton("Discard",(dialog, which) -> dialog.cancel());
             AlertDialog info = connection.create();
             info.setTitle("CONNECTION FAILED");
             info.show();
