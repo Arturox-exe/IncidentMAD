@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/mqttLayout"
     tools:context=".mqtt.MqttClient">
 
 
@@ -56,7 +57,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:imeOptions="flagNoExtractUi"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textColor="#C17EC8" />
 
         <Button
             android:id="@+id/BSend"

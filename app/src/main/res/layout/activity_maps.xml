@@ -38,9 +38,10 @@
         android:id="@+id/distanceId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=""
         android:layout_gravity="center"
+        android:text=""
         android:textAlignment="center"
+        android:textColor="@color/purple_bar"
         android:textSize="15dp" />
 
     <fragment

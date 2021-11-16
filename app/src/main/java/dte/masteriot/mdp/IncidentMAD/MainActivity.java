@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             imageAccident = BitmapFactory.decodeStream(is);
             is = getAssets().open("close.png");
             imageClose = BitmapFactory.decodeStream(is);
-            is = getAssets().open("demonstration.png");
+            is = getAssets().open("demonstration_green.png");
             imageDemonstration = BitmapFactory.decodeStream(is);
             is = getAssets().open("works.png");
             imageWorks = BitmapFactory.decodeStream(is);
@@ -131,12 +131,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 eventType = parser.next();
             }
         } catch (Exception e) {
-            AlertDialog.Builder connection = new AlertDialog.Builder(MainActivity.this);
+           /* AlertDialog.Builder connection = new AlertDialog.Builder(MainActivity.this);
             connection.setMessage("The application needs Internet connection.\nTry again later.");
             connection.setCancelable(false).setNegativeButton("Close app", (dialog, which) -> finish());
             AlertDialog info = connection.create();
             info.setTitle("CONNECTION FAILED");
-            info.show();
+            info.show();*/
         }
     }
 

@@ -89,6 +89,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     if (type.equals("Individual")) {
                         getDistance();
                         polyline = mMap.addPolyline(new PolylineOptions().add(position, coordinates));
+                        polyline.setColor(Color.parseColor("#C17EC8"));
                     }
                 }
                 fusedLocationProviderClient.removeLocationUpdates(this);
@@ -109,10 +110,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         bPosition = (Button) findViewById(R.id.position);
         mapsLayout = findViewById(R.id.mapsLayout);
         locationRequest = LocationRequest.create();
-
-        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        Sensor lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-        sensorManager.registerListener(MapsActivity.this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -169,6 +166,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 return false;
             }
         });
+        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        Sensor lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        sensorManager.registerListener(MapsActivity.this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     private void setImage(String type){
@@ -187,7 +187,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 image = "close-icon.png";
                 break;
             case "EVD":
-                image = "demonstration-icon.png";
+                image = "demonstration-green-" +
+                        "icon.png";
                 break;
             default:
                 image = "alert_orange_icon.png";
@@ -257,12 +258,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (sensorEvent.sensor.getType() == Sensor.TYPE_LIGHT) {
             // Show the sensor's value in the UI:
             if((sensorEvent.values[0]) < 25) {
-                //getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 mapsLayout.setBackgroundColor(Color.parseColor("#303030"));
                 mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.mapstyle_night));
             }
             else{
-                //getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                mapsLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                mMap.setMapStyle(null);
             }
 
         }

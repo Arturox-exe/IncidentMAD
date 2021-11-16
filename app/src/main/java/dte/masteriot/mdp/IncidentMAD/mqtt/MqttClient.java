@@ -6,6 +6,7 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Build;
 import android.content.Context;
@@ -18,12 +19,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -59,7 +62,7 @@ public class MqttClient extends AppCompatActivity implements SensorEventListener
     private LocationRequest locationRequest;
     private FusedLocationProviderClient fusedLocationProviderClient;
     LatLng position;
-
+    ConstraintLayout mqttLayout;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -75,6 +78,8 @@ public class MqttClient extends AppCompatActivity implements SensorEventListener
         RecyclerView mRecyclerView = findViewById(R.id.history_recycler_view);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+        mqttLayout =findViewById(R.id.mqttLayout);
 
         mAdapter = new HistoryAdapter(new ArrayList<>());
         mRecyclerView.setAdapter(mAdapter);
@@ -261,9 +266,9 @@ public class MqttClient extends AppCompatActivity implements SensorEventListener
         if (sensorEvent.sensor.getType() == Sensor.TYPE_LIGHT) {
             // Show the sensor's value in the UI:
             if ((sensorEvent.values[0]) < 25) {
-                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                mqttLayout.setBackgroundColor(Color.parseColor("#303030"));
             } else {
-                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                mqttLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
             }
         }
     }
